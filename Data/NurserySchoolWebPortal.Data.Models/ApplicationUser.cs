@@ -3,10 +3,11 @@ namespace NurserySchoolWebPortal.Data.Models
 {
     using System;
     using System.Collections.Generic;
-
-    using NurserySchoolWebPortal.Data.Common.Models;
+    using System.ComponentModel.DataAnnotations;
 
     using Microsoft.AspNetCore.Identity;
+    using NurserySchoolWebPortal.Data.Common.Models;
+    using NurserySchoolWebPortal.Data.Models.Enums;
 
     public class ApplicationUser : IdentityUser, IAuditInfo, IDeletableEntity
     {
@@ -17,6 +18,25 @@ namespace NurserySchoolWebPortal.Data.Models
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
         }
+
+        [Required]
+        public string FirstName { get; set; }
+
+        [Required]
+        public string LastName { get; set; }
+
+        public Gender Gender { get; set; }
+
+        public DateTime DateOfBirth { get; set; }
+
+        public string Address { get; set; }
+
+        [Required]
+        public UserType UserType { get; set; }
+
+        public virtual Parent Parent { get; set; }
+
+        public virtual Principal Principal { get; set; }
 
         // Audit info
         public DateTime CreatedOn { get; set; }

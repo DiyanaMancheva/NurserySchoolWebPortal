@@ -26,6 +26,30 @@
 
         public DbSet<Setting> Settings { get; set; }
 
+        public DbSet<Child> Children { get; set; }
+
+        public DbSet<Immunization> Immunizations { get; set; }
+
+        public DbSet<Menu> Menus { get; set; }
+
+        public DbSet<Post> Posts { get; set; }
+
+        public DbSet<Principal> Principals { get; set; }
+
+        public DbSet<NurseryGroup> NurseryGroups { get; set; }
+
+        public DbSet<NurserySchool> NurserySchools { get; set; }
+
+        public DbSet<PersonalInfo> PersonalInfos { get; set; }
+
+        public DbSet<Image> Images { get; set; }
+
+        public DbSet<Fee> Fees { get; set; }
+
+        public DbSet<Teacher> Teachers { get; set; }
+
+        public DbSet<PersonalInfoImmunizations> PersonalInfoImmunizations { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
