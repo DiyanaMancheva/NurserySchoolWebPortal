@@ -29,10 +29,12 @@
                               new AdminSeeder(),
                               //new SettingsSeeder(),
                               new NurserySchoolsSeeder(),
-                              new PrincipalsSeeder(),
                               new NurseryGroupsSeeder(),
                               new TeachersSeeder(),
                               new ChildrenSeeder(),
+                              //new PrincipalsSeeder(),
+                              new PostsSeeder(),
+                              new ImagesSeeder(),
                           };
 
             foreach (var seeder in seeders)

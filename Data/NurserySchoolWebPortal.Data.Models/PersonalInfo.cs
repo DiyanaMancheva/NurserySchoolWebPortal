@@ -8,7 +8,7 @@
     {
         public PersonalInfo()
         {
-            this.Immunizations = new HashSet<PersonalInfoImmunizations>();
+            this.Immunizations = new HashSet<PersonalInfoImmunization>();
         }
 
         public decimal Height { get; set; }
@@ -19,6 +19,6 @@
 
         public virtual Child Child { get; set; }
 
-        public virtual ICollection<PersonalInfoImmunizations> Immunizations { get; set; }
+        public virtual ICollection<PersonalInfoImmunization> Immunizations { get; set; }
     }
 }

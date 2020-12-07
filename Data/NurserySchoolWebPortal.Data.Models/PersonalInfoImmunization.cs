@@ -2,7 +2,7 @@
 {
     using NurserySchoolWebPortal.Data.Common.Models;
 
-    public class PersonalInfoImmunizations : BaseDeletableModel<int>
+    public class PersonalInfoImmunization : BaseDeletableModel<int>
     {
         public int PersonalInfoId { get; set; }
 

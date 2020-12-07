@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NurserySchoolWebPortal.Data;
 
 namespace NurserySchoolWebPortal.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201206094457_FixParentsModel")]
+    partial class FixParentsModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -458,7 +460,6 @@ namespace NurserySchoolWebPortal.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Friday")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
@@ -468,22 +469,18 @@ namespace NurserySchoolWebPortal.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Monday")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("NurserySchoolId")
                         .HasColumnType("int");
 
                     b.Property<string>("Thursday")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Tuesday")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Wednesday")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -697,9 +694,6 @@ namespace NurserySchoolWebPortal.Data.Migrations
 
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("ImageUrl")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -979,7 +973,7 @@ namespace NurserySchoolWebPortal.Data.Migrations
             modelBuilder.Entity("NurserySchoolWebPortal.Data.Models.Post", b =>
                 {
                     b.HasOne("NurserySchoolWebPortal.Data.Models.NurserySchool", "NurseryShool")
-                        .WithMany("Posts")
+                        .WithMany("Notifications")
                         .HasForeignKey("NurserySchoolId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();

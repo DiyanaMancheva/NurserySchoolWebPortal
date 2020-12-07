@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+
     using NurserySchoolWebPortal.Data.Common.Models;
 
     public class NurserySchool : BaseDeletableModel<int>
@@ -9,7 +10,7 @@
         public NurserySchool()
         {
             this.NurseryGroups = new HashSet<NurseryGroup>();
-            this.Notifications = new HashSet<Post>();
+            this.Posts = new HashSet<Post>();
         }
 
         [Required]
@@ -24,6 +25,6 @@
 
         public virtual ICollection<NurseryGroup> NurseryGroups { get; set; }
 
-        public virtual ICollection<Post> Notifications { get; set; }
+        public virtual ICollection<Post> Posts { get; set; }
     }
 }

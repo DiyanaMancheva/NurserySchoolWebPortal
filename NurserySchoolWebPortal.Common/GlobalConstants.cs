@@ -5,8 +5,8 @@
         public const string SystemName = "NurserySchoolWebPortal";
 
         public const string AdministratorRoleName = "Administrator";
-
         public const string ParentRoleName = "Parent";
+        public const string PrincipalRoleName = "Principal";
 
         public const string AdminEmail = "admin@admin.admin";
         public const string AdminPassword = "admin123";

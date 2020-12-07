@@ -40,6 +40,8 @@
 
         public DbSet<NurserySchool> NurserySchools { get; set; }
 
+        public DbSet<Parent> Parents { get; set; }
+
         public DbSet<PersonalInfo> PersonalInfos { get; set; }
 
         public DbSet<Image> Images { get; set; }
@@ -48,7 +50,7 @@
 
         public DbSet<Teacher> Teachers { get; set; }
 
-        public DbSet<PersonalInfoImmunizations> PersonalInfoImmunizations { get; set; }
+        public DbSet<PersonalInfoImmunization> PersonalInfoImmunizations { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 

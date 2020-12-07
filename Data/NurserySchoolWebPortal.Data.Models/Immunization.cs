@@ -3,13 +3,14 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+
     using NurserySchoolWebPortal.Data.Common.Models;
 
     public class Immunization : BaseDeletableModel<int>
     {
         public Immunization()
         {
-            this.PersonalInfos = new HashSet<PersonalInfoImmunizations>();
+            this.PersonalInfos = new HashSet<PersonalInfoImmunization>();
         }
 
         [Required]
@@ -18,6 +19,6 @@
         [Required]
         public DateTime Date { get; set; }
 
-        public virtual ICollection<PersonalInfoImmunizations> PersonalInfos { get; set; }
+        public virtual ICollection<PersonalInfoImmunization> PersonalInfos { get; set; }
     }
 }

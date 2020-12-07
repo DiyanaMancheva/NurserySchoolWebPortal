@@ -21,6 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\NurserySchoolWebPortal.Data.Common\NurserySchoolWebPortal.Data.Common.csproj" />
     <ProjectReference Include="..\..\Data\NurserySchoolWebPortal.Data.Models\NurserySchoolWebPortal.Data.Models.csproj" />
+    <ProjectReference Include="..\..\Web\NurserySchoolWebPortal.Web.ViewModels\NurserySchoolWebPortal.Web.ViewModels.csproj" />
     <ProjectReference Include="..\NurserySchoolWebPortal.Services.Mapping\NurserySchoolWebPortal.Services.Mapping.csproj" />
   </ItemGroup>
 

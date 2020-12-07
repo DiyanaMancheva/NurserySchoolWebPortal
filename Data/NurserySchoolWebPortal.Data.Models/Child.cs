@@ -2,6 +2,7 @@
 {
     using System;
     using System.ComponentModel.DataAnnotations;
+
     using NurserySchoolWebPortal.Data.Common.Models;
 
     public class Child : BaseDeletableModel<int>
