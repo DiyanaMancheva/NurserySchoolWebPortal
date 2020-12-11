@@ -1,9 +1,9 @@
 ﻿namespace NurserySchoolWebPortal.Web.Areas.Administration.Controllers
 {
+    using Microsoft.AspNetCore.Mvc;
+
     using NurserySchoolWebPortal.Services.Data;
     using NurserySchoolWebPortal.Web.ViewModels.Administration.Dashboard;
-
-    using Microsoft.AspNetCore.Mvc;
 
     public class DashboardController : AdministrationController
     {

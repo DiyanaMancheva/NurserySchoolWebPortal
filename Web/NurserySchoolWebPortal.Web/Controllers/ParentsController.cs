@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
@@ -23,6 +23,7 @@
             //this.parentsService = parentsService;
         }
 
+        [Authorize(Roles = "Parent")]
         public IActionResult PersonalPage()
         {
             //var viewModel = this.parentsService.GetAll();
@@ -33,8 +34,10 @@
             var groupId = child.NurseryGroupId;
             var school = this.dbContext.NurserySchools.FirstOrDefault(x => x.NurseryGroups.Any(x => x.Id == groupId));
 
-            var posts = this.dbContext.Posts.Where(x => x.NurserySchoolId == school.Id).Select(x => new PostViewModel
+            var postsSlide1 = this.dbContext.Posts.Where(x => x.NurserySchoolId == school.Id).Select(x => new PostViewModel
             {
+                Id = x.Id,
+                ImageUrl = x.ImageUrl,
                 Title = x.Title,
                 Content = x.Content,
                 Created = x.CreatedOn,
@@ -43,9 +46,34 @@
                 .Take(4)
                 .ToList();
 
+            var postsSlide2 = this.dbContext.Posts.Where(x => x.NurserySchoolId == school.Id).Select(x => new PostViewModel
+            {
+                Id = x.Id,
+                ImageUrl = x.ImageUrl,
+                Title = x.Title,
+                Content = x.Content,
+                Created = x.CreatedOn,
+            })
+                .OrderByDescending(x => x.Created)
+                .Skip(4).Take(4)
+                .ToList();
+
+            var postsSlide3 = this.dbContext.Posts.Where(x => x.NurserySchoolId == school.Id).Select(x => new PostViewModel
+            {
+                Id = x.Id,
+                ImageUrl = x.ImageUrl,
+                Title = x.Title,
+                Content = x.Content,
+                Created = x.CreatedOn,
+            })
+                .OrderByDescending(x => x.Created)
+                .Skip(8).Take(4)
+                .ToList();
+
             var images = this.dbContext.Images.Where(x => x.NurseryGroupId == currentUser.Children.FirstOrDefault().NurseryGroupId)
                 .Where(x => x.NurseryGroupId == groupId).Select(x => new ImageViewModel
                 {
+                    Id = x.Id,
                     Url = x.Url,
                     Extension = x.Extension,
                 })
@@ -53,8 +81,9 @@
 
             var viewModel = new ParentPageViewModel
             {
-                Posts = posts,
-                PostsCount = posts.Count(),
+                PostsSlide1 = postsSlide1,
+                PostsSlide2 = postsSlide2,
+                PostsSlide3 = postsSlide3,
                 Images = images,
             };
 

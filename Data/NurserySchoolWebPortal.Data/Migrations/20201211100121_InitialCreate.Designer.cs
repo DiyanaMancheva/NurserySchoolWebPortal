@@ -10,8 +10,8 @@ using NurserySchoolWebPortal.Data;
 namespace NurserySchoolWebPortal.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201204133851_AddModels")]
-    partial class AddModels
+    [Migration("20201211100121_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -460,6 +460,7 @@ namespace NurserySchoolWebPortal.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Friday")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
@@ -469,18 +470,22 @@ namespace NurserySchoolWebPortal.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Monday")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("NurserySchoolId")
                         .HasColumnType("int");
 
                     b.Property<string>("Thursday")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Tuesday")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Wednesday")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -601,7 +606,7 @@ namespace NurserySchoolWebPortal.Data.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("Parent");
+                    b.ToTable("Parents");
                 });
 
             modelBuilder.Entity("NurserySchoolWebPortal.Data.Models.PersonalInfo", b =>
@@ -642,7 +647,7 @@ namespace NurserySchoolWebPortal.Data.Migrations
                     b.ToTable("PersonalInfos");
                 });
 
-            modelBuilder.Entity("NurserySchoolWebPortal.Data.Models.PersonalInfoImmunizations", b =>
+            modelBuilder.Entity("NurserySchoolWebPortal.Data.Models.PersonalInfoImmunization", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -694,6 +699,9 @@ namespace NurserySchoolWebPortal.Data.Migrations
 
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -955,7 +963,7 @@ namespace NurserySchoolWebPortal.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("NurserySchoolWebPortal.Data.Models.PersonalInfoImmunizations", b =>
+            modelBuilder.Entity("NurserySchoolWebPortal.Data.Models.PersonalInfoImmunization", b =>
                 {
                     b.HasOne("NurserySchoolWebPortal.Data.Models.Immunization", "Immunization")
                         .WithMany("PersonalInfos")
@@ -973,7 +981,7 @@ namespace NurserySchoolWebPortal.Data.Migrations
             modelBuilder.Entity("NurserySchoolWebPortal.Data.Models.Post", b =>
                 {
                     b.HasOne("NurserySchoolWebPortal.Data.Models.NurserySchool", "NurseryShool")
-                        .WithMany("Notifications")
+                        .WithMany("Posts")
                         .HasForeignKey("NurserySchoolId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();

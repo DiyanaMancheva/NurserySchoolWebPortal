@@ -14,7 +14,9 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using Microsoft.Extensions.Logging;
+
     using NurserySchoolWebPortal.Data.Models;
+    using NurserySchoolWebPortal.Common;
 
     [AllowAnonymous]
     public class LoginModel : PageModel
@@ -74,44 +76,39 @@
             this.ReturnUrl = returnUrl;
         }
 
-        public async Task<IActionResult> OnPostAsync(string returnUrl = null)
+        public async Task<IActionResult> OnPostAsync(string returnUrl)
         {
-            if (this.ModelState.IsValid)
-            {
-                if (this.User.IsInRole("Principal"))
-                {
-                    returnUrl = returnUrl ?? this.Url.Content("~/");
-                }
-                else if (this.User.IsInRole("Parent"))
-                {
-                    returnUrl = "~/Parents/PersonalPage";
-                }
+            returnUrl = this.User.Identity.IsAuthenticated ? "~/Principals/PersonalPage"
+                : "~/Parents/PersonalPage";
 
-                // This doesn't count login failures towards account lockout
-                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await this._signInManager.PasswordSignInAsync(this.Input.Email, this.Input.Password, this.Input.RememberMe, lockoutOnFailure: false);
+            if (ModelState.IsValid)
+            {
+                // This doesn't count login failures towards account lockout	
+                // To enable password failures to trigger account lockout, set lockoutOnFailure: true	
+                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
-                {
-                    this._logger.LogInformation("User logged in.");
-                    return this.LocalRedirect(returnUrl);
+            {
+
+                    _logger.LogInformation("User logged in.");
+                    return LocalRedirect(returnUrl);
                 }
 
                 if (result.RequiresTwoFactor)
-                {
-                    return this.RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = this.Input.RememberMe });
-                }
+            {
+                return this.RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = this.Input.RememberMe });
+            }
 
                 if (result.IsLockedOut)
-                {
-                    this._logger.LogWarning("User account locked out.");
-                    return this.RedirectToPage("./Lockout");
-                }
-                else
-                {
-                    this.ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                    return this.Page();
-                }
+            {
+                this._logger.LogWarning("User account locked out.");
+                return this.RedirectToPage("./Lockout");
             }
+            else
+            {
+                this.ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                return this.Page();
+            }
+        }
 
             // If we got this far, something failed, redisplay form
             return this.Page();

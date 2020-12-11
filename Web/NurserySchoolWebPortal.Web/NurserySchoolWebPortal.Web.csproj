@@ -32,6 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Data\NurserySchoolWebPortal.Data.Common\NurserySchoolWebPortal.Data.Common.csproj" />
     <ProjectReference Include="..\..\NurserySchoolWebPortal.Common\NurserySchoolWebPortal.Common.csproj" />
     <ProjectReference Include="..\..\Data\NurserySchoolWebPortal.Data.Models\NurserySchoolWebPortal.Data.Models.csproj" />
     <ProjectReference Include="..\..\Data\NurserySchoolWebPortal.Data\NurserySchoolWebPortal.Data.csproj" />

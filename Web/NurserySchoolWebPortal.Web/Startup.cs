@@ -2,17 +2,6 @@
 {
     using System.Reflection;
 
-    using NurserySchoolWebPortal.Data;
-    using NurserySchoolWebPortal.Data.Common;
-    using NurserySchoolWebPortal.Data.Common.Repositories;
-    using NurserySchoolWebPortal.Data.Models;
-    using NurserySchoolWebPortal.Data.Repositories;
-    using NurserySchoolWebPortal.Data.Seeding;
-    using NurserySchoolWebPortal.Services.Data;
-    using NurserySchoolWebPortal.Services.Mapping;
-    using NurserySchoolWebPortal.Services.Messaging;
-    using NurserySchoolWebPortal.Web.ViewModels;
-
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -21,6 +10,17 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using NurserySchoolWebPortal.Data;
+    using NurserySchoolWebPortal.Data.Common;
+    using NurserySchoolWebPortal.Data.Common.Repositories;
+    using NurserySchoolWebPortal.Data.Models;
+    using NurserySchoolWebPortal.Data.Repositories;
+    using NurserySchoolWebPortal.Data.Seeding;
+    using NurserySchoolWebPortal.Services;
+    using NurserySchoolWebPortal.Services.Data;
+    using NurserySchoolWebPortal.Services.Mapping;
+    using NurserySchoolWebPortal.Services.Messaging;
+    using NurserySchoolWebPortal.Web.ViewModels;
 
     public class Startup
     {
@@ -65,6 +65,7 @@
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<IParentsService, ParentsService>();
+            services.AddTransient<IPostsService, PostsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -83,7 +84,8 @@
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
+                //app.UseDatabaseErrorPage();
+                app.UseMigrationsEndPoint();
             }
             else
             {

@@ -36,7 +36,7 @@
         {
             var currentUser = this.userRepository.AllAsNoTracking().Include(x => x.Parent.Children).FirstOrDefault(x => x.UserName == "Diyana");
 
-            var posts = this.postRepository.AllAsNoTracking()
+            var postsSlide1 = this.postRepository.AllAsNoTracking()
                 .Where(x => x.NurserySchoolId == currentUser.Parent.Children.FirstOrDefault().NurseryGroup.NurserySchoolId)
                 .Select(x => new PostViewModel
                 {
@@ -46,6 +46,30 @@
                 })
                 .OrderByDescending(x => x.Created)
                 .Take(4)
+                .ToList();
+
+                var postsSlide2 = this.postRepository.AllAsNoTracking()
+                .Where(x => x.NurserySchoolId == currentUser.Parent.Children.FirstOrDefault().NurseryGroup.NurserySchoolId)
+                .Select(x => new PostViewModel
+                {
+                    Title = x.Title,
+                    Content = x.Content,
+                    Created = x.CreatedOn,
+                })
+                .OrderByDescending(x => x.Created)
+                .Skip(4).Take(4)
+                .ToList();
+
+                var postsSlide3 = this.postRepository.AllAsNoTracking()
+                .Where(x => x.NurserySchoolId == currentUser.Parent.Children.FirstOrDefault().NurseryGroup.NurserySchoolId)
+                .Select(x => new PostViewModel
+                {
+                    Title = x.Title,
+                    Content = x.Content,
+                    Created = x.CreatedOn,
+                })
+                .OrderByDescending(x => x.Created)
+                .Skip(8).Take(4)
                 .ToList();
 
             var images = this.imageRepository.AllAsNoTracking()
@@ -58,8 +82,9 @@
 
             var viewModel = new ParentPageViewModel
             {
-                Posts = posts,
-                PostsCount = posts.Count(),
+                PostsSlide1 = postsSlide1,
+                PostsSlide2 = postsSlide2,
+                PostsSlide3 = postsSlide3,
                 Images = images,
             };
 

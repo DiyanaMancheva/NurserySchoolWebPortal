@@ -15,66 +15,227 @@
                 return;
             }
 
+
             await dbContext.Posts.AddAsync(new Post
             {
-                Title = "Knclsje LJdjcm",
-                Content = "Llkdn ks lskfnv k lskdnvlsk lksdnv l lsmdnv lksdnvl k pskdmv. Llkdn ks lskfnv k lskdnvlsk lksdnv l lsmdnv lksdnvl k pskdmv. Llkdn ks lskfnv k lskdnvlsk lksdnv l lsmdnv lksdnvl k pskdmv.",
+                ImageUrl = "https://img.favpng.com/4/9/11/pre-school-playgroup-child-care-ashgrove-nursery-school-png-favpng-sRQDrn6jzwRrp7LD65DGzNKQg.jpg",
+                Title = "Нови свободни места",
+                Content = "Уважаеми родители," +
+                "Във връзка с приключващ ремонт в ДГ \"My World\"" +
+                "са обявени следните свободни места:" +
+                "-Деца, родени през 2019 г.- 1 места по общ ред;" +
+                "-Деца, родени през 2018 г.- 5 места по общ ред, 2 места за деца с хронични заболявания;" +
+                "-Деца, родени през 2016 г.- 3 свободни места по общ ред.",
                 NurserySchoolId = 1,
             });
 
             await dbContext.Posts.AddAsync(new Post
             {
-                Title = "Knclsje LJdjcm",
-                Content = "Llkdn ks lskfnv k lskdnvlsk lksdnv l lsmdnv lksdnvl k pskdmv. Llkdn ks lskfnv k lskdnvlsk lksdnv l lsmdnv lksdnvl k pskdmv. Llkdn ks lskfnv k lskdnvlsk lksdnv l lsmdnv lksdnvl k pskdmv.",
+                ImageUrl = "https://1t1rycb9er64f1pgy2iuseow-wpengine.netdna-ssl.com/wp-content/uploads/2018/05/openproject-GDPR-compliance-02-900x438.jpg",
+                Title = "Защита на личните данни",
+                Content = "Считано от 25 май 2018 г. влезе в сила Регламент (ЕС) 2016/679 " +
+                "(General Data Protection Regulation - GDPR) на Европейския парламент и на Съвета от 27 април 2016 година " +
+                "относно защитата на физическите лица във връзка с обработването на лични данни " +
+                "и относно свободното движение на такива данни и за отмяна на Директива 95/46/ЕО (Общ регламент относно защитата на данните)." +
+                "Повече относно политиката за защита на личните данни и вашите права може да прочетете на https://www.sofia.bg/protection-of-personal-data",
                 NurserySchoolId = 1,
             });
 
             await dbContext.Posts.AddAsync(new Post
             {
-                Title = "Knclsje LJdjcm",
-                Content = "Llkdn ks lskfnv k lskdnvlsk lksdnv l lsmdnv lksdnvl k pskdmv. Llkdn ks lskfnv k lskdnvlsk lksdnv l lsmdnv lksdnvl k pskdmv. Llkdn ks lskfnv k lskdnvlsk lksdnv l lsmdnv lksdnvl k pskdmv.",
+                ImageUrl = "https://education.gov.gy/web/media/k2/items/cache/949f13c1df30a468b76afab5b994011b_XL.jpg",
+                Title = "Храните в детската градина - без ГМО, трансмазнини и цели ядки",
+                Content = "Само смлени, но не и цели ядки ще могат да дават на малчуганите в детските градини." +
+                " Това е един от текстовете в Наредба за специфичните изисквания към безопасността и качеството " +
+                "на храните в училища и детски заведения, пусната за обществено обсъждане. С нея се дава възможност " +
+                "да бъдат доставяни и био продукти за закуска и обяд на учениците" +
+                "Според изискванията, всички месни, млечни и други продукти, " +
+                "ползвани за приготвяне на училищна храна и в детските градини, " +
+                "трябва да са или произведени по БДС или спазвайки технологията за здравословно хранене на децата. " +
+                "Не се допуска включване на ГМО храни и на обработени с йонизиращи лъчения, " +
+                "с изтекъл срок на годност или нарушена опаковка. Хлябът трябва да е без оцветители. " +
+                "Не се позволява използването на трансмазнини, а само на олио, зехтин и краве масло." +
+                "В плодовите и зеленчукови сокове ще бъде позволено да има захари " +
+                "от максимум 20 на сто от съдържанието им. Айранът, " +
+                "който се предлага като част от училищната закуска, трябва да е направен само от кисело мляко и вода, " +
+                "без добавена сол. Яйцата трябва да са задължително клас А," +
+                " а шоколадите да отговарят на европейските изисквания. Наличните храни в училищните лавки, " +
+                "които не отговарят на изискванията, ще се продават до изчерпване на количествата",
                 NurserySchoolId = 1,
             });
 
             await dbContext.Posts.AddAsync(new Post
             {
-                Title = "Knclsje LJdjcm",
-                Content = "Llkdn ks lskfnv k lskdnvlsk lksdnv l lsmdnv lksdnvl k pskdmv. Llkdn ks lskfnv k lskdnvlsk lksdnv l lsmdnv lksdnvl k pskdmv. Llkdn ks lskfnv k lskdnvlsk lksdnv l lsmdnv lksdnvl k pskdmv.",
+                ImageUrl = "https://tacchi-morris.com//media/images/Corona%20Virus%20image.jpg",
+                Title = "COVID-19 в детско заведение: Ето алгоритъмът, по който трябва да се действа",
+                Content = "Столична община публикува на сайта си алгоритъмът, по който трябва да действа " +
+                "всяко звено в образователните структури в София, при случай на заразен с COVID-19. " +
+                "Заповедта е публикувана на 23 октомври и засяга действията на директорите, " +
+                "учителите и помощния персонал в детските градини, детските ясли и училищата в столицата. " +
+                "Има и съвети към родителите." +
+                "Прочетете целия материал на следния линк: " +
+                "https://www.actualno.com/sofia/covid-19-v-detsko-zavedenie-eto-algoritymyt-po-kojto-trjabva-da-se-dejstva-news_1512469.html© Actualno.com",
                 NurserySchoolId = 1,
             });
 
             await dbContext.Posts.AddAsync(new Post
             {
-                Title = "Knclsje LJdjcm",
-                Content = "Llkdn ks lskfnv k lskdnvlsk lksdnv l lsmdnv lksdnvl k pskdmv. Llkdn ks lskfnv k lskdnvlsk lksdnv l lsmdnv lksdnvl k pskdmv. Llkdn ks lskfnv k lskdnvlsk lksdnv l lsmdnv lksdnvl k pskdmv.",
+                ImageUrl = "https://images.twinkl.co.uk/tr/image/upload/illustation/school-milk-carton.png",
+                Title = "Схема Училищно мляко и Училищен плод",
+                Content = "Предоставянето на полагаемите продукти по схема \"Училищно мляко\" и \"Училищен плод\" " +
+                "за периода на извънредното положение ще се органозира пред централния вход на ДГ \"My World\". " +
+                "С цел да уточним броя на желаещите за получаване на полагаемите се пеодукти, " +
+                "е необходимо да отразите вашето мнение чрез попълване на приложената декларация." +
+                " Продуктите за тези от вас, които откажат получаването," +
+                " ще се разпределят между нуждаещи се от останалите деца.",
                 NurserySchoolId = 1,
             });
 
             await dbContext.Posts.AddAsync(new Post
             {
-                Title = "Knclsje LJdjcm",
-                Content = "Llkdn ks lskfnv k lskdnvlsk lksdnv l lsmdnv lksdnvl k pskdmv. Llkdn ks lskfnv k lskdnvlsk lksdnv l lsmdnv lksdnvl k pskdmv. Llkdn ks lskfnv k lskdnvlsk lksdnv l lsmdnv lksdnvl k pskdmv.",
+                ImageUrl = "https://edc-bg.com/media/18/54.jpg",
+                Title = "Изложба \"Зимна приказка\"",
+                Content = "ДГ \"Smiles\" организира изложба \"Зимна приказка\" с творби от колекцията си. " +
+                "Експозицията е мобилна и включва от 5 до 12 работи на деца от 3 до 5 години от 3 групи." +
+                "Рисунките ще участват в \"Световния конкурс за детска рисунка – България\" на Фондация  \"Малък Зограф\" и ще бъдат дарени на Фонда." +
+                "Фондът организира изложби с творбите и ги дарява на лечебни заведения в цялата страна.",
                 NurserySchoolId = 2,
             });
 
             await dbContext.Posts.AddAsync(new Post
             {
-                Title = "Knclsje LJdjcm",
-                Content = "Llkdn ks lskfnv k lskdnvlsk lksdnv l lsmdnv lksdnvl k pskdmv. Llkdn ks lskfnv k lskdnvlsk lksdnv l lsmdnv lksdnvl k pskdmv. Llkdn ks lskfnv k lskdnvlsk lksdnv l lsmdnv lksdnvl k pskdmv.",
+                ImageUrl = "https://1t1rycb9er64f1pgy2iuseow-wpengine.netdna-ssl.com/wp-content/uploads/2018/05/openproject-GDPR-compliance-02-900x438.jpg",
+                Title = "Защита на личните данни",
+                Content = "Считано от 25 май 2018 г. влезе в сила Регламент (ЕС) 2016/679 " +
+                "(General Data Protection Regulation - GDPR) на Европейския парламент и на Съвета от 27 април 2016 година " +
+                "относно защитата на физическите лица във връзка с обработването на лични данни " +
+                "и относно свободното движение на такива данни и за отмяна на Директива 95/46/ЕО (Общ регламент относно защитата на данните)." +
+                "Повече относно политиката за защита на личните данни и вашите права може да прочетете на https://www.sofia.bg/protection-of-personal-data",
                 NurserySchoolId = 2,
             });
 
             await dbContext.Posts.AddAsync(new Post
             {
-                Title = "Knclsje LJdjcm",
-                Content = "Llkdn ks lskfnv k lskdnvlsk lksdnv l lsmdnv lksdnvl k pskdmv. Llkdn ks lskfnv k lskdnvlsk lksdnv l lsmdnv lksdnvl k pskdmv. Llkdn ks lskfnv k lskdnvlsk lksdnv l lsmdnv lksdnvl k pskdmv.",
+                ImageUrl = "https://education.gov.gy/web/media/k2/items/cache/949f13c1df30a468b76afab5b994011b_XL.jpg",
+                Title = "Храните в детската градина - без ГМО, трансмазнини и цели ядки",
+                Content = "Само смлени, но не и цели ядки ще могат да дават на малчуганите в детските градини." +
+                " Това е един от текстовете в Наредба за специфичните изисквания към безопасността и качеството " +
+                "на храните в училища и детски заведения, пусната за обществено обсъждане. С нея се дава възможност " +
+                "да бъдат доставяни и био продукти за закуска и обяд на учениците" +
+                "Според изискванията, всички месни, млечни и други продукти, " +
+                "ползвани за приготвяне на училищна храна и в детските градини, " +
+                "трябва да са или произведени по БДС или спазвайки технологията за здравословно хранене на децата. " +
+                "Не се допуска включване на ГМО храни и на обработени с йонизиращи лъчения, " +
+                "с изтекъл срок на годност или нарушена опаковка. Хлябът трябва да е без оцветители. " +
+                "Не се позволява използването на трансмазнини, а само на олио, зехтин и краве масло." +
+                "В плодовите и зеленчукови сокове ще бъде позволено да има захари " +
+                "от максимум 20 на сто от съдържанието им. Айранът, " +
+                "който се предлага като част от училищната закуска, трябва да е направен само от кисело мляко и вода, " +
+                "без добавена сол. Яйцата трябва да са задължително клас А," +
+                " а шоколадите да отговарят на европейските изисквания. Наличните храни в училищните лавки, " +
+                "които не отговарят на изискванията, ще се продават до изчерпване на количествата",
                 NurserySchoolId = 2,
             });
 
             await dbContext.Posts.AddAsync(new Post
             {
-                Title = "Knclsje LJdjcm",
-                Content = "Llkdn ks lskfnv k lskdnvlsk lksdnv l lsmdnv lksdnvl k pskdmv. Llkdn ks lskfnv k lskdnvlsk lksdnv l lsmdnv lksdnvl k pskdmv. Llkdn ks lskfnv k lskdnvlsk lksdnv l lsmdnv lksdnvl k pskdmv.",
+                ImageUrl = "https://tacchi-morris.com//media/images/Corona%20Virus%20image.jpg",
+                Title = "COVID-19 в детско заведение: Ето алгоритъмът, по който трябва да се действа",
+                Content = "Столична община публикува на сайта си алгоритъмът, по който трябва да действа " +
+                "всяко звено в образователните структури в София, при случай на заразен с COVID-19. " +
+                "Заповедта е публикувана на 23 октомври и засяга действията на директорите, " +
+                "учителите и помощния персонал в детските градини, детските ясли и училищата в столицата. " +
+                "Има и съвети към родителите." +
+                "Прочетете целия материал на следния линк: " +
+                "https://www.actualno.com/sofia/covid-19-v-detsko-zavedenie-eto-algoritymyt-po-kojto-trjabva-da-se-dejstva-news_1512469.html© Actualno.com",
+                NurserySchoolId = 2,
+            });
+
+            await dbContext.Posts.AddAsync(new Post
+            {
+                ImageUrl = "https://images.twinkl.co.uk/tr/image/upload/illustation/school-milk-carton.png",
+                Title = "Схема Училищно мляко и Училищен плод",
+                Content = "Предоставянето на полагаемите продукти по схема \"Училищно мляко\" и \"Училищен плод\" " +
+                "за периода на извънредното положение ще се органозира пред централния вход на ДГ \"My World\". " +
+                "С цел да уточним броя на желаещите за получаване на полагаемите се пеодукти, " +
+                "е необходимо да отразите вашето мнение чрез попълване на приложената декларация." +
+                " Продуктите за тези от вас, които откажат получаването," +
+                " ще се разпределят между нуждаещи се от останалите деца.",
+                NurserySchoolId = 2,
+            });
+
+            await dbContext.Posts.AddAsync(new Post
+            {
+                ImageUrl = "https://img.favpng.com/4/9/11/pre-school-playgroup-child-care-ashgrove-nursery-school-png-favpng-sRQDrn6jzwRrp7LD65DGzNKQg.jpg",
+                Title = "Нови свободни места",
+                Content = "Уважаеми родители," +
+                "Във връзка с приключващ ремонт в ДГ \"Little Sunshine\"" +
+                "са обявени следните свободни места:" +
+                "-Деца, родени през 2019 г.- 2 места по общ ред;" +
+                "-Деца, родени през 2018 г.- 4 места по общ ред, 2 места за деца с хронични заболявания;" +
+                "-Деца, родени през 2017 г.- 1 свободни места по общ ред;",
+                NurserySchoolId = 3,
+            });
+
+            await dbContext.Posts.AddAsync(new Post
+            {
+                ImageUrl = "https://1t1rycb9er64f1pgy2iuseow-wpengine.netdna-ssl.com/wp-content/uploads/2018/05/openproject-GDPR-compliance-02-900x438.jpg",
+                Title = "Защита на личните данни",
+                Content = "Считано от 25 май 2018 г. влезе в сила Регламент (ЕС) 2016/679 " +
+                "(General Data Protection Regulation - GDPR) на Европейския парламент и на Съвета от 27 април 2016 година " +
+                "относно защитата на физическите лица във връзка с обработването на лични данни " +
+                "и относно свободното движение на такива данни и за отмяна на Директива 95/46/ЕО (Общ регламент относно защитата на данните)." +
+                "Повече относно политиката за защита на личните данни и вашите права може да прочетете на https://www.sofia.bg/protection-of-personal-data",
+                NurserySchoolId = 3,
+            });
+
+            await dbContext.Posts.AddAsync(new Post
+            {
+                ImageUrl = "https://education.gov.gy/web/media/k2/items/cache/949f13c1df30a468b76afab5b994011b_XL.jpg",
+                Title = "Храните в детската градина - без ГМО, трансмазнини и цели ядки",
+                Content = "Само смлени, но не и цели ядки ще могат да дават на малчуганите в детските градини." +
+                " Това е един от текстовете в Наредба за специфичните изисквания към безопасността и качеството " +
+                "на храните в училища и детски заведения, пусната за обществено обсъждане. С нея се дава възможност " +
+                "да бъдат доставяни и био продукти за закуска и обяд на учениците" +
+                "Според изискванията, всички месни, млечни и други продукти, " +
+                "ползвани за приготвяне на училищна храна и в детските градини, " +
+                "трябва да са или произведени по БДС или спазвайки технологията за здравословно хранене на децата. " +
+                "Не се допуска включване на ГМО храни и на обработени с йонизиращи лъчения, " +
+                "с изтекъл срок на годност или нарушена опаковка. Хлябът трябва да е без оцветители. " +
+                "Не се позволява използването на трансмазнини, а само на олио, зехтин и краве масло." +
+                "В плодовите и зеленчукови сокове ще бъде позволено да има захари " +
+                "от максимум 20 на сто от съдържанието им. Айранът, " +
+                "който се предлага като част от училищната закуска, трябва да е направен само от кисело мляко и вода, " +
+                "без добавена сол. Яйцата трябва да са задължително клас А," +
+                " а шоколадите да отговарят на европейските изисквания. Наличните храни в училищните лавки, " +
+                "които не отговарят на изискванията, ще се продават до изчерпване на количествата",
+                NurserySchoolId = 3,
+            });
+
+            await dbContext.Posts.AddAsync(new Post
+            {
+                ImageUrl = "https://tacchi-morris.com//media/images/Corona%20Virus%20image.jpg",
+                Title = "COVID-19 в детско заведение: Ето алгоритъмът, по който трябва да се действа",
+                Content = "Столична община публикува на сайта си алгоритъмът, по който трябва да действа " +
+                "всяко звено в образователните структури в София, при случай на заразен с COVID-19. " +
+                "Заповедта е публикувана на 23 октомври и засяга действията на директорите, " +
+                "учителите и помощния персонал в детските градини, детските ясли и училищата в столицата. " +
+                "Има и съвети към родителите." +
+                "Прочетете целия материал на следния линк: " +
+                "https://www.actualno.com/sofia/covid-19-v-detsko-zavedenie-eto-algoritymyt-po-kojto-trjabva-da-se-dejstva-news_1512469.html© Actualno.com",
+                NurserySchoolId = 3,
+            });
+
+            await dbContext.Posts.AddAsync(new Post
+            {
+                ImageUrl = "https://images.twinkl.co.uk/tr/image/upload/illustation/school-milk-carton.png",
+                Title = "Схема Училищно мляко и Училищен плод",
+                Content = "Предоставянето на полагаемите продукти по схема \"Училищно мляко\" и \"Училищен плод\" " +
+                "за периода на извънредното положение ще се органозира пред централния вход на ДГ \"My World\". " +
+                "С цел да уточним броя на желаещите за получаване на полагаемите се пеодукти, " +
+                "е необходимо да отразите вашето мнение чрез попълване на приложената декларация." +
+                " Продуктите за тези от вас, които откажат получаването," +
+                " ще се разпределят между нуждаещи се от останалите деца.",
                 NurserySchoolId = 3,
             });
         }

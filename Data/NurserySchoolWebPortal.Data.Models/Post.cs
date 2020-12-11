@@ -13,7 +13,7 @@
         [Required]
         public string Content { get; set; }
 
-        //public string ImageUrl { get; set; }
+        public string ImageUrl { get; set; }
 
         [ForeignKey(nameof(NurserySchool))]
         public int NurserySchoolId { get; set; }
