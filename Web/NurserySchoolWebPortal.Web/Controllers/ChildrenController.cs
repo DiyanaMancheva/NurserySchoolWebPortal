@@ -7,37 +7,30 @@
     using NurserySchoolWebPortal.Data;
     using NurserySchoolWebPortal.Services.Data;
 
-    public class PostsController : BaseController
+    public class ChildrenController : BaseController
     {
         private readonly ApplicationDbContext dbContext;
-        private readonly IPostsService postsService;
+        private readonly IChildrenService childrenService;
 
-        public PostsController(
+        public ChildrenController(
             ApplicationDbContext dbContext,
-            IPostsService postsService)
+            IChildrenService childrenService)
         {
             this.dbContext = dbContext;
-            this.postsService = postsService;
+            this.childrenService = childrenService;
         }
 
-        public IActionResult GetById(int id)
-        {
-            var post = this.postsService.GetById(id);
-
-            return this.View(post);
-        }
-
-        public IActionResult AllPerSchool()
+        public IActionResult ById()
         {
             string userNam = this.User.Identity.Name;
             var currentUser = this.dbContext.Parents.Include(x => x.Children).FirstOrDefault(x => x.User.Email == userNam);
-            var child = currentUser.Children.FirstOrDefault();
-            var groupId = child.NurseryGroupId;
+            var childUser = currentUser.Children.FirstOrDefault();
+            var groupId = childUser.NurseryGroupId;
             var school = this.dbContext.NurserySchools.FirstOrDefault(x => x.NurseryGroups.Any(x => x.Id == groupId));
 
-            var posts = this.postsService.AllPerSchool(school.Id);
+            var child = this.childrenService.ById(childUser.Id);
 
-            return this.View(posts);
+            return this.View(child);
         }
     }
 }

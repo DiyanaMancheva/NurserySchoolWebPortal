@@ -38,10 +38,10 @@
                             if (this.User.IsInRole("Parent"))
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Children" asp-action="PersonalPage">Child</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Images" asp-action="AllPerGroup">Images</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Posts" asp-action="AllPerSchool">Posts</a>
                                 </li>
                             }
                             else if (this.User.IsInRole("Principal"))

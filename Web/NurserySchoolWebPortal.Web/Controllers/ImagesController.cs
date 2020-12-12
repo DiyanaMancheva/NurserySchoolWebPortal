@@ -6,28 +6,22 @@
     using Microsoft.EntityFrameworkCore;
     using NurserySchoolWebPortal.Data;
     using NurserySchoolWebPortal.Services.Data;
+    using NurserySchoolWebPortal.Web.ViewModels.Images;
 
-    public class PostsController : BaseController
+    public class ImagesController : BaseController
     {
         private readonly ApplicationDbContext dbContext;
-        private readonly IPostsService postsService;
+        private readonly IImagesService imagesService;
 
-        public PostsController(
+        public ImagesController(
             ApplicationDbContext dbContext,
-            IPostsService postsService)
+            IImagesService imagesService)
         {
             this.dbContext = dbContext;
-            this.postsService = postsService;
+            this.imagesService = imagesService;
         }
 
-        public IActionResult GetById(int id)
-        {
-            var post = this.postsService.GetById(id);
-
-            return this.View(post);
-        }
-
-        public IActionResult AllPerSchool()
+        public IActionResult AllPerGroup(int id = 1)
         {
             string userNam = this.User.Identity.Name;
             var currentUser = this.dbContext.Parents.Include(x => x.Children).FirstOrDefault(x => x.User.Email == userNam);
@@ -35,9 +29,22 @@
             var groupId = child.NurseryGroupId;
             var school = this.dbContext.NurserySchools.FirstOrDefault(x => x.NurseryGroups.Any(x => x.Id == groupId));
 
-            var posts = this.postsService.AllPerSchool(school.Id);
+            if (id <= 0)
+            {
+                return this.NotFound();
+            }
 
-            return this.View(posts);
+            const int ImagesPerPage = 6;
+
+            var viewModel = new ImagesListViewModel
+            {
+                ImagesPerPage = ImagesPerPage,
+                PageNumber = id,
+                ImagesCount = this.imagesService.GetCount(groupId),
+                Images = this.imagesService.AllPerGroup(groupId, id, ImagesPerPage),
+            };
+
+            return this.View(viewModel);
         }
     }
 }

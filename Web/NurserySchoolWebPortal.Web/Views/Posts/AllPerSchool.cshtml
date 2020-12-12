@@ -1,0 +1,84 @@
+﻿@model  NurserySchoolWebPortal.Web.ViewModels.Posts.PostsPerSchool
+
+<link href="~/css/posts.css" rel="stylesheet" asp-append-version="true" />
+
+<hr />
+
+<!--Posts Carousel Wrapper-->
+<div id="multi-item-example" class="carousel slide carousel-multi-item carousel-multi-item-2" data-ride="carousel">
+<!--Controls-->
+<div class="controls-top">
+    <a class="black-text" href="#multi-item-example" data-slide="prev"><i class="fas fa-angle-left fa-3x pr-3"></i></a>
+    <a class="black-text" href="#multi-item-example" data-slide="next"><i class="fas fa-angle-right fa-3x pl-3"></i></a>
+</div>
+<!--/.Controls-->
+<!--Slides-->
+<div class="carousel-inner" role="listbox">
+<!--First slide-->
+<div class="carousel-item active">
+
+    @foreach (var post in this.Model.PostsSlide1)
+    {
+        <div class="col-md-3 mb-3">
+            <div class="card">
+                <img class="img-fluid" src=@post.ImageUrl
+                     alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">@post.Title</h5>
+                    <p class="card-text">@post.ShortContent</p>
+                    <a asp-controller="Posts" asp-action="GetById" asp-route-id="@post.Id" class="btn btn-primary">Read</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<!--/.First slide-->
+<!--Second slide-->
+    @if (this.Model.PostsSlide2.Count() > 0)
+    {
+        <div class="carousel-item">
+    
+            @foreach (var post in this.Model.PostsSlide2)
+            {
+            <div class="col-md-3 mb-3">
+                <div class="card">
+                    <img class="img-fluid" src=@post.ImageUrl
+                         alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">@post.Title</h5>
+                        <p class="card-text">@post.ShortContent</p>
+                        <a asp-controller="Posts" asp-action="GetById" asp-route-id="@post.Id" class="btn btn-primary">Read</a>
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+    }
+<!--/.Second slide-->
+<!--Third slide-->
+    @if (this.Model.PostsSlide3.Count() > 0)
+    {
+        <div class="carousel-item">
+            @foreach (var post in this.Model.PostsSlide3)
+            {
+                <div class="col-md-3 mb-3">
+                    <div class="card">
+                        <img class="img-fluid" src=@post.ImageUrl
+                             alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">@post.Title</h5>
+                            <p class="card-text">@post.ShortContent</p>
+                            <a asp-controller="Posts" asp-action="GetById" asp-route-id="@post.Id" class="btn btn-primary">Read</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+<!--/.Third slide-->
+</div>
+<!--/.Slides-->
+</div>
+<!--/.Posts Carousel Wrapper-->
+
+<hr />

@@ -5,5 +5,7 @@
     public interface IPostsService
     {
         SinglePostViewModel GetById(int id);
+
+        PostsPerSchool AllPerSchool(int schoolId);
     }
 }

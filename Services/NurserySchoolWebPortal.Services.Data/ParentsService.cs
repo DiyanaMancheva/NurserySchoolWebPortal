@@ -1,16 +1,12 @@
 ﻿namespace NurserySchoolWebPortal.Services.Data
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
 
+    using System.Linq;
+
+    using Microsoft.EntityFrameworkCore;
     using NurserySchoolWebPortal.Data.Common.Repositories;
     using NurserySchoolWebPortal.Data.Models;
     using NurserySchoolWebPortal.Web.ViewModels.Parents;
-
-    using System.Linq;
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.AspNetCore.Identity;
 
     public class ParentsService : IParentsService
     {
