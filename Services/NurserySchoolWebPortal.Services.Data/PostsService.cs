@@ -24,6 +24,8 @@
                      Id = x.Id,
                      Title = x.Title,
                      Content = x.Content,
+                     ImageUrl = x.ImageUrl,
+                     CreatedOn = x.CreatedOn,
                  })
                  .FirstOrDefault();
 
