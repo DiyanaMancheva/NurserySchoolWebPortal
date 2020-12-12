@@ -123,7 +123,7 @@
                     if (user.UserType == UserType.Parent)
                     {
                         await this._userManager.AddToRoleAsync(user, ParentRoleName);
-                        returnUrl = "~/Parents/PersonalPage";
+                        returnUrl = "~/Children/ById";
                     }
                     else if (user.UserType == UserType.Principal)
                     {

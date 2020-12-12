@@ -24,6 +24,7 @@
                 EGN = "5212125673",
                 Address = "Sofia, Str.Malkara 35, app.4",
                 NurseryGroupId = 1,
+                DateOfBirth = new DateTime(2017, 3, 17),
             });
 
             await dbContext.Children.AddAsync(new Child
@@ -35,6 +36,7 @@
                 EGN = "5210063675",
                 Address = "Sofia, Boulv.Vasil Levski 5, app.14",
                 NurseryGroupId = 1,
+                DateOfBirth = new DateTime(2017, 3, 17),
             });
 
             await dbContext.Children.AddAsync(new Child
@@ -46,6 +48,7 @@
                 EGN = "5107171245",
                 Address = "Sofia, Str.Malkara 12, app.24",
                 NurseryGroupId = 2,
+                DateOfBirth = new DateTime(2017, 3, 17),
             });
 
             await dbContext.Children.AddAsync(new Child
@@ -57,6 +60,7 @@
                 EGN = "5306137623",
                 Address = "Sofia, Str.Parchevich 17, app.4",
                 NurseryGroupId = 3,
+                DateOfBirth = new DateTime(2017, 3, 17),
             });
 
             await dbContext.Children.AddAsync(new Child
@@ -68,6 +72,7 @@
                 EGN = "5304128465",
                 Address = "Sofia, Str.Malkara 35, app.12",
                 NurseryGroupId = 2,
+                DateOfBirth = new DateTime(2017, 3, 17),
             });
 
             await dbContext.Children.AddAsync(new Child
@@ -79,6 +84,7 @@
                 EGN = "5101127354",
                 Address = "Sofia, Str.Suborna 5, app.7",
                 NurseryGroupId = 6,
+                DateOfBirth = new DateTime(2017, 3, 17),
             });
         }
     }

@@ -2,12 +2,15 @@
 {
     using System.Linq;
 
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
+
     using NurserySchoolWebPortal.Data;
     using NurserySchoolWebPortal.Services.Data;
     using NurserySchoolWebPortal.Web.ViewModels.Images;
 
+    [Authorize(Roles = "Parent")]
     public class ImagesController : BaseController
     {
         private readonly ApplicationDbContext dbContext;

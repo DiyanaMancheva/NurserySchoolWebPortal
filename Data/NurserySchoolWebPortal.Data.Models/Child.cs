@@ -30,12 +30,12 @@
 
         public virtual PersonalInfo PersonalInfo { get; set; }
 
+        public virtual Fee Fee { get; set; }
+
         public virtual Parent Parent { get; set; }
 
         public int NurseryGroupId { get; set; }
 
         public virtual NurseryGroup NurseryGroup { get; set; }
-
-        public virtual Fee Fee { get; set; }
     }
 }

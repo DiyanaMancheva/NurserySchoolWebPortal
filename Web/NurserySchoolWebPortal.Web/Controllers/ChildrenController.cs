@@ -2,11 +2,14 @@
 {
     using System.Linq;
 
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
+
     using NurserySchoolWebPortal.Data;
     using NurserySchoolWebPortal.Services.Data;
 
+    [Authorize(Roles = "Parent")]
     public class ChildrenController : BaseController
     {
         private readonly ApplicationDbContext dbContext;

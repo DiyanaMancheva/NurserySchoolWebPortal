@@ -457,6 +457,7 @@ namespace NurserySchoolWebPortal.Data.Migrations
                     Title = table.Column<string>(nullable: false),
                     DateFrom = table.Column<DateTime>(nullable: false),
                     DateTo = table.Column<DateTime>(nullable: false),
+                    MoneyAmount = table.Column<double>(nullable: false),
                     ChildId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>

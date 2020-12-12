@@ -1,4 +1,6 @@
-﻿namespace NurserySchoolWebPortal.Web.ViewModels.Children
+﻿using System;
+
+namespace NurserySchoolWebPortal.Web.ViewModels.Children
 {
     public class ChildViewModel
     {
@@ -13,5 +15,17 @@
         public FeeViewModel Fee { get; set; }
 
         public PersonalInfoViewModel PersonalInfo { get; set; }
+
+        public int Gender { get; set; }
+
+        public string Address { get; set; }
+
+        public DateTime DateOfBirth { get; set; }
+
+        public string NurserySchool { get; set; }
+
+        public int NurseryGroup { get; set; }
+
+        public ParentViewModel Parent { get; set; }
     }
 }

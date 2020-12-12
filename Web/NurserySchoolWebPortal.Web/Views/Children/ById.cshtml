@@ -1,8 +1,212 @@
 ﻿@model NurserySchoolWebPortal.Web.ViewModels.Children.ChildViewModel
 
-<div>
-    <h2>Fee</h2>
-    <h2>@Model.FirstName</h2>
+<link href="~/css/child.css" rel="stylesheet">
+
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="container emp-profile">
+    <form method="post">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="profile-img">
+                    @if (Model.Gender == 1)
+                    {
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIH7RQXr8xuDMGUTdfgNmhtyGI8X7FRlOI6Q&usqp=CAU" alt="boy pic" />
+                    }
+                    else if (Model.Gender == 2)
+                    {
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfl8UA2ySNt0AO59joBF8AFCZestVmb2AtDA&usqp=CAU" alt="girl pic" />
+                    }
+                    @*<div class="file btn btn-lg btn-primary">
+                        Change Photo
+                        <input type="file" name="file" />
+                    </div>*@
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="profile-head">
+                    <h5>
+                        @Model.FirstName @Model.MiddleName @Model.LastName
+                    </h5>
+                    <h6>
+                        @Model.NurserySchool Nursery School
+                    </h6>
+                    <p class="proile-rating">RANKINGS : <span>8/10</span></p>
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Personal Info</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#pr" role="tab" aria-controls="pr" aria-selected="false">Fees</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="profile-work">
+                    <p>Parent Info</p>
+                    <a href="">@Model.Parent.ParentName</a><br />
+                    <a href="">@Model.Parent.ParentEmail</a><br />
+                    <a href="">Model.Phone</a>
+                    @*<p>SKILLS</p>
+                    <a href="">Web Designer</a><br />
+                    <a href="">Web Developer</a><br />
+                    <a href="">WordPress</a><br />
+                    <a href="">WooCommerce</a><br />
+                    <a href="">PHP, .Net</a><br />*@
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="tab-content profile-tab" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>First Name</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>@Model.FirstName</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Middle Name</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>@Model.MiddleName</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Last Name</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>@Model.LastName</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Date of Birth</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>@Model.DateOfBirth</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Address</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>@Model.Address</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Nursery School</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>@Model.NurserySchool</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Nursery Group</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>@Model.NurseryGroup</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Height</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>Model.PersonalInfo.Height</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Weight</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>Model.PersonalInfo.Weight</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Immunizations</label>
+                            </div>
+                            foreach (var immunization in Model.PersonalInfo.Immunizations)
+                            {
+                            <div class="col-md-6">
+                                <p>Model.PersonalInfo.Immunizations.Name-Model.PersonalInfo.Immunizations.Date</p>
+                            </div>
+                            }
+                        </div>
+                        @*<div class="row">
+                <div class="col-md-6">
+                    <label>Availability</label>
+                </div>
+                <div class="col-md-6">
+                    <p>6 months</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <label>Your Bio</label><br />
+                    <p>Your detail description</p>
+                </div>
+            </div>*@
+                    </div>
+                    <div class="tab-pane fade" id="pr" role="tabpanel" aria-labelledby="pr-tab">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Title</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>Model.Fee.Title</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>From</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>Model.Fee.DateFrom</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>To</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>Model.Fee.DateTo</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Fee</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>Model.Fee.MoneyAmount</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
 </div>
 
 

@@ -9,25 +9,28 @@
     public class ChildrenService : IChildrenService
     {
         private readonly IDeletableEntityRepository<Child> childrenRepository;
-        private readonly IDeletableEntityRepository<Fee> feeRepository;
-        private readonly IDeletableEntityRepository<PersonalInfo> personalInfoRepository;
-        private readonly IDeletableEntityRepository<Immunization> immunizationRepository;
+        private readonly IDeletableEntityRepository<Fee> feesRepository;
+        private readonly IDeletableEntityRepository<PersonalInfo> personalInfosRepository;
+        private readonly IDeletableEntityRepository<Immunization> immunizationsRepository;
+        private readonly IDeletableEntityRepository<Parent> parentsRepository;
 
         public ChildrenService(
             IDeletableEntityRepository<Child> childrenRepository,
-            IDeletableEntityRepository<Fee> feeRepository,
-            IDeletableEntityRepository<PersonalInfo> personalInfoRepository,
-            IDeletableEntityRepository<Immunization> immunizationRepository)
+            IDeletableEntityRepository<Fee> feesRepository,
+            IDeletableEntityRepository<PersonalInfo> personalInfosRepository,
+            IDeletableEntityRepository<Immunization> immunizationsRepository,
+            IDeletableEntityRepository<Parent> parentsRepository)
         {
             this.childrenRepository = childrenRepository;
-            this.feeRepository = feeRepository;
-            this.personalInfoRepository = personalInfoRepository;
-            this.immunizationRepository = immunizationRepository;
+            this.feesRepository = feesRepository;
+            this.personalInfosRepository = personalInfosRepository;
+            this.immunizationsRepository = immunizationsRepository;
+            this.parentsRepository = parentsRepository;
         }
 
         public ChildViewModel ById(int id)
         {
-            var fee = this.feeRepository.AllAsNoTracking()
+            var fee = this.feesRepository.AllAsNoTracking()
                 .Where(x => x.ChildId == id)
                 .Select(x => new FeeViewModel
                 {
@@ -38,13 +41,23 @@
                 })
                 .FirstOrDefault();
 
-            var personalInfo = this.personalInfoRepository.AllAsNoTracking()
+            var personalInfo = this.personalInfosRepository.AllAsNoTracking()
                 .Where(x => x.ChildId == id)
                 .Select(x => new PersonalInfoViewModel
                 {
                     Id = x.Id,
                     Weight = x.Weight,
                     Height = x.Height,
+                })
+                .FirstOrDefault();
+
+            var parent = this.parentsRepository.AllAsNoTracking()
+                .Where(x => x.Children.Any(y => y.Id == id))
+                .Select(x => new ParentViewModel
+                {
+                    Id = x.Id,
+                    ParentName = x.User.FirstName + " " + x.User.LastName,
+                    ParentEmail = x.User.Email,
                 })
                 .FirstOrDefault();
 
@@ -58,12 +71,18 @@
                     LastName = x.LastName,
                     Fee = fee,
                     PersonalInfo = personalInfo,
+                    Gender = (int)x.Gender,
+                    Address = x.Address,
+                    DateOfBirth = x.DateOfBirth,
+                    NurserySchool = x.NurseryGroup.NurserySchool.Name,
+                    NurseryGroup = x.NurseryGroupId,
+                    Parent = parent,
                 })
                 .FirstOrDefault();
 
             return child;
 
-            //var immunizations = this.immunizationRepository.AllAsNoTracking()
+            //var immunizations = this.immunizationsRepository.AllAsNoTracking()
             //   .Where(x => x.PersonalInfos.Contains(personalInfo))
         }
     }

@@ -10,7 +10,7 @@ using NurserySchoolWebPortal.Data;
 namespace NurserySchoolWebPortal.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201211100121_InitialCreate")]
+    [Migration("20201212193813_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -354,6 +354,9 @@ namespace NurserySchoolWebPortal.Data.Migrations
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
+
+                    b.Property<double>("MoneyAmount")
+                        .HasColumnType("float");
 
                     b.Property<string>("Title")
                         .IsRequired()

@@ -10,11 +10,11 @@
         [Required]
         public string Title { get; set; }
 
-        [Required]
         public DateTime DateFrom { get; set; }
 
-        [Required]
         public DateTime DateTo { get; set; }
+
+        public double MoneyAmount { get; set; }
 
         public int ChildId { get; set; }
 
