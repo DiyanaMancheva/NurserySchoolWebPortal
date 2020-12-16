@@ -9,7 +9,7 @@
         public const string PrincipalRoleName = "Principal";
 
         public const string AdminEmail = "admin@admin.admin";
-        public const string AdminPassword = "admin123";
+        public const string AdminPassword = "1234567899";
         public const string AdminFirstName = "Admin";
         public const string AdminLastName = "Adminov";
     }

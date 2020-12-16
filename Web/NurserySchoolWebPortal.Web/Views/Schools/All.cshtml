@@ -1,0 +1,43 @@
+﻿@model NurserySchoolWebPortal.Web.ViewModels.Schools.SchoolsViewModel
+@using NurserySchoolWebPortal.Common;
+
+<link href="~/css/posts.css" rel="stylesheet" asp-append-version="true" />
+
+<hr />
+<div class="container my-4">
+    <hr class="my-4">
+    <!--Carousel Wrapper-->
+    <div id="carousel-demo" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner" role="listbox">
+            <div class="carousel-item active">
+                <div class="row">
+                    @foreach (var school in Model.Schools)
+                    {
+                        <div class="col-md-4 clearfix d-none d-md-block">
+                            <div class="card mb-2">
+                                <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(18).jpg"
+                                     alt="Card image cap">
+                                <div class="card-body">
+                                    <h4 class="card-title">@school.Name</h4>
+                                    <p class="card-text">
+                                        @school.Address
+                                    </p>
+                                    @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                                    {
+                                        <a asp-controller="Schools" asp-action="ById" asp-route-id="@school.Id" class="btn btn-primary">Welcome</a>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/.Carousel Wrapper-->
+</div>
+<hr />
+
+

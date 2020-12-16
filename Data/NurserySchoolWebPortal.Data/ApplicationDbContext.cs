@@ -24,8 +24,6 @@
         {
         }
 
-        public DbSet<Setting> Settings { get; set; }
-
         public DbSet<Child> Children { get; set; }
 
         public DbSet<Immunization> Immunizations { get; set; }
