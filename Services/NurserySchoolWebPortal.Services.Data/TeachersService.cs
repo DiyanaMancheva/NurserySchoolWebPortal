@@ -1,7 +1,6 @@
 ﻿namespace NurserySchoolWebPortal.Services.Data
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
 
     using NurserySchoolWebPortal.Data.Common.Repositories;
@@ -17,33 +16,34 @@
             this.teachersRepository = teachersRepository;
         }
 
-        public TeachersViewModel All()
+        public TeachersViewModel All(int page, int teachersPerPage = 3)
         {
-            var teachers = this.GetRandom(10);
-
-            const int TeachersPerSlide = 4;
+            var teachers = this.teachersRepository.AllAsNoTracking()
+                .OrderBy(x => Guid.NewGuid())
+                .Skip((page - 1) * teachersPerPage)
+                .Take(teachersPerPage)
+                .Select(x => new SingleTeacherViewModel
+                {
+                    Id = x.Id,
+                    FullName = x.FirstName + " " + x.LastName,
+                    NurseryGroupId = x.NurseryGroupId,
+                    NurserySchool = x.NurseryGroup.NurserySchool.Name,
+                    //ProfilePic = x.Url,
+                    //PersonalMessage = x.PersonalMessage,
+                })
+                .ToList();
 
             var teachersViewModel = new TeachersViewModel
             {
                 Teachers = teachers,
-                TeachersCount = teachers.Count(),
-                TeachersPerSlide = TeachersPerSlide,
             };
 
             return teachersViewModel;
         }
 
-        private IEnumerable<SingleTeacherViewModel> GetRandom(int count)
+        public int GetCount()
         {
-            return this.teachersRepository.AllAsNoTracking()
-                .OrderBy(x => Guid.NewGuid())
-                .Take(count)
-                .Select(x => new SingleTeacherViewModel
-                {
-                    Id = x.Id,
-                    NurseryGroupId = x.NurseryGroupId,
-                })
-                .ToList();
+            return this.teachersRepository.AllAsNoTracking().Count();
         }
     }
 }

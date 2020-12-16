@@ -41,9 +41,9 @@
 
             var viewModel = new ImagesListViewModel
             {
-                ImagesPerPage = ImagesPerPage,
+                ItemsPerPage = ImagesPerPage,
                 PageNumber = id,
-                ImagesCount = this.imagesService.GetCount(groupId),
+                ItemsCount = this.imagesService.GetCount(groupId),
                 Images = this.imagesService.AllPerGroup(groupId, id, ImagesPerPage),
             };
 

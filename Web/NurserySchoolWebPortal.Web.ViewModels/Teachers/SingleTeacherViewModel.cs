@@ -8,10 +8,14 @@
 
         public string LastName { get; set; }
 
-        public string FullName => this.FirstName + " " + this.LastName; 
+        public string FullName { get; set; }
 
         public int NurseryGroupId { get; set; }
 
         public string NurserySchool { get; set; }
+
+        public string ProfilePic { get; set; }
+
+        public string PersonalMessage { get; set; }
     }
 }

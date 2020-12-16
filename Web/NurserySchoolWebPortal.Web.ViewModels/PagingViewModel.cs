@@ -6,11 +6,11 @@
     {
         public int PageNumber { get; set; }
 
-        public int ImagesCount { get; set; }
+        public int ItemsCount { get; set; }
 
-        public int ImagesPerPage { get; set; }
+        public int ItemsPerPage { get; set; }
 
-        public int PagesCount => (int)Math.Ceiling((double)this.ImagesCount / this.ImagesPerPage);
+        public int PagesCount => (int)Math.Ceiling((double)this.ItemsCount / this.ItemsPerPage);
 
         public bool HasPreviousPage => this.PageNumber > 1;
 

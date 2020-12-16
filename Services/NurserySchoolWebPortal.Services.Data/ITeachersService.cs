@@ -4,6 +4,8 @@
 
     public interface ITeachersService
     {
-        TeachersViewModel All();
+        TeachersViewModel All(int page, int teachersPerPage);
+
+        int GetCount();
     }
 }
