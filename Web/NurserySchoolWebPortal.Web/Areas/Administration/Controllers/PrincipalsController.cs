@@ -1,5 +1,6 @@
 ﻿namespace NurserySchoolWebPortal.Web.Areas.Administration.Controllers
 {
+    using System.Linq;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Identity;
@@ -31,7 +32,26 @@
         // GET: Administration/Principals
         public async Task<IActionResult> Index()
         {
-            return this.View(await this.principalsRepository.AllWithDeleted().ToListAsync());
+            var principals = this.principalsRepository.AllAsNoTracking()
+                .Select(x => new PrincipalViewModel
+                {
+                    Id = x.Id,
+                    FirstName = x.User.FirstName,
+                    LastName = x.User.LastName,
+                    CreatedOn = x.CreatedOn,
+                    ModifiedOn = x.ModifiedOn,
+                    IsDeleted = x.IsDeleted,
+                    DeletedOn = x.DeletedOn,
+                    SchoolId = x.NurserySchoolId,
+                })
+                .ToList();
+
+            var viewModel = new PrincipalsListViewModel
+            {
+                Principals = principals,
+            };
+
+            return this.View(viewModel);
         }
 
         //// GET: Administration/Principals/Details/5

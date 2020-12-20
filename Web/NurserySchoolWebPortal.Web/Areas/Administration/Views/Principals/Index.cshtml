@@ -1,38 +1,28 @@
-﻿@model IEnumerable<NurserySchoolWebPortal.Data.Models.Principal>
-
+﻿@model NurserySchoolWebPortal.Web.ViewModels.Administration.Principals.PrincipalsListViewModel
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Principals List</h1>
 
 <p>
-    <a asp-action="Create" class="btn btn-primary">Create New</a>
+    <a asp-action="Create" class="btn btn-primary">Create Principal</a>
 </p>
-<table id="DataTable">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(Model => Model.User.FirstName) @Html.DisplayNameFor(Model => Model.User.LastName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsDeleted)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedOn)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ModifiedOn)
-            </th>
-            <th></th>
-        </tr>
-</thead>
-    <tbody>
-        @foreach (var item in this.Model)
+<table id="DataTable" class="table">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">IsDeleted</th>
+                <th scope="col">CreatedOn</th>
+                <th scope="col">ModifiedOn</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in this.Model.Principals)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.User.FirstName) 
+                    @Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.IsDeleted)
@@ -51,14 +41,14 @@
                 </td>
             </tr>
         }
-    </tbody>
+        </tbody>
 </table>
 
 @section Scripts
-{
-    <script>
-        $(document).ready(function () {
-            $('#DataTable').DataTable();
-        });
-    </script>
-}
+    {
+            <script>
+                $(document).ready(function () {
+                    $('#DataTable').DataTable();
+                });
+            </script>
+        }
