@@ -1,5 +1,6 @@
 ﻿namespace NurserySchoolWebPortal.Services.Data
 {
+    using System.Collections.Generic;
     using System.Linq;
 
     using NurserySchoolWebPortal.Data.Common.Repositories;
@@ -56,6 +57,21 @@
             };
 
             return viewModel;
+        }
+
+        public IEnumerable<KeyValuePair<int, string>> GetAllAsKeyValuePairs()
+        {
+            var schools = this.schoolsRepository.AllAsNoTracking()
+                .Select(x => new
+                {
+                    x.Id,
+                    x.Name,
+                })
+                .OrderBy(x => x.Id)
+                .ToList()
+                .Select(x => new KeyValuePair<int, string>(x.Id, x.Name));
+
+            return schools;
         }
     }
 }

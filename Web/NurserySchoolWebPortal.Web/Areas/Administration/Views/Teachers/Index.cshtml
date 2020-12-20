@@ -1,0 +1,71 @@
+﻿@model IEnumerable<NurserySchoolWebPortal.Data.Models.Teacher>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
+</p>
+<table id="DataTable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName) @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.NurseryGroupId)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.IsDeleted)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedOn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ModifiedOn)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var teacher in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => teacher.FirstName)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => teacher.NurseryGroupId)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => teacher.IsDeleted)
+                @Html.DisplayFor(modelItem => teacher.DeletedOn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => teacher.CreatedOn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => teacher.ModifiedOn)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@teacher.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@teacher.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@teacher.Id">Delete</a>
+            </td>
+        </tr>
+                    }
+                </tbody>
+            </table>
+
+            @section Scripts
+            {
+                <script>
+                    $(document).ready(function () {
+                        $('#DataTable').DataTable();
+                    });
+                </script>
+            }
+

@@ -1,6 +1,5 @@
 ﻿namespace NurserySchoolWebPortal.Data.Models
 {
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
@@ -8,10 +7,10 @@
 
     public class Principal : BaseDeletableModel<int>
     {
-        public Principal()
-        {
-            this.NurserySchools = new HashSet<NurserySchool>();
-        }
+        //public Principal()
+        //{
+        //    this.NurserySchools = new HashSet<NurserySchool>();
+        //}
 
         [Required]
         [ForeignKey(nameof(User))]
@@ -19,6 +18,12 @@
 
         public virtual ApplicationUser User { get; set; }
 
-        public virtual ICollection<NurserySchool> NurserySchools { get; set; }
+        [Required]
+        [ForeignKey(nameof(NurserySchool))]
+        public int NurserySchoolId { get; set; }
+
+        public virtual NurserySchool School { get; set; }
+
+        //public virtual ICollection<NurserySchool> NurserySchools { get; set; }
     }
 }

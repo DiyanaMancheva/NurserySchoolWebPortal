@@ -26,16 +26,16 @@
 
         public IActionResult AllPerGroup(int id = 1)
         {
+            if (id <= 0)
+            {
+                return this.NotFound();
+            }
+
             string userNam = this.User.Identity.Name;
             var currentUser = this.dbContext.Parents.Include(x => x.Children).FirstOrDefault(x => x.User.Email == userNam);
             var child = currentUser.Children.FirstOrDefault();
             var groupId = child.NurseryGroupId;
             var school = this.dbContext.NurserySchools.FirstOrDefault(x => x.NurseryGroups.Any(x => x.Id == groupId));
-
-            if (id <= 0)
-            {
-                return this.NotFound();
-            }
 
             const int ImagesPerPage = 6;
 

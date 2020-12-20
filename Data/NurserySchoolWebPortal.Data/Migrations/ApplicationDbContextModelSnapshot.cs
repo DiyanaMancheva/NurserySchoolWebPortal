@@ -565,14 +565,9 @@ namespace NurserySchoolWebPortal.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("PrincipalId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("IsDeleted");
-
-                    b.HasIndex("PrincipalId");
 
                     b.ToTable("NurserySchools");
                 });
@@ -745,6 +740,9 @@ namespace NurserySchoolWebPortal.Data.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("NurserySchoolId")
+                        .HasColumnType("int");
+
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -753,42 +751,13 @@ namespace NurserySchoolWebPortal.Data.Migrations
 
                     b.HasIndex("IsDeleted");
 
+                    b.HasIndex("NurserySchoolId")
+                        .IsUnique();
+
                     b.HasIndex("UserId")
                         .IsUnique();
 
                     b.ToTable("Principals");
-                });
-
-            modelBuilder.Entity("NurserySchoolWebPortal.Data.Models.Setting", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Value")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IsDeleted");
-
-                    b.ToTable("Settings");
                 });
 
             modelBuilder.Entity("NurserySchoolWebPortal.Data.Models.Teacher", b =>
@@ -939,13 +908,6 @@ namespace NurserySchoolWebPortal.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("NurserySchoolWebPortal.Data.Models.NurserySchool", b =>
-                {
-                    b.HasOne("NurserySchoolWebPortal.Data.Models.Principal", "Principal")
-                        .WithMany("NurserySchools")
-                        .HasForeignKey("PrincipalId");
-                });
-
             modelBuilder.Entity("NurserySchoolWebPortal.Data.Models.Parent", b =>
                 {
                     b.HasOne("NurserySchoolWebPortal.Data.Models.ApplicationUser", "User")
@@ -990,6 +952,12 @@ namespace NurserySchoolWebPortal.Data.Migrations
 
             modelBuilder.Entity("NurserySchoolWebPortal.Data.Models.Principal", b =>
                 {
+                    b.HasOne("NurserySchoolWebPortal.Data.Models.NurserySchool", "School")
+                        .WithOne("Principal")
+                        .HasForeignKey("NurserySchoolWebPortal.Data.Models.Principal", "NurserySchoolId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("NurserySchoolWebPortal.Data.Models.ApplicationUser", "User")
                         .WithOne("Principal")
                         .HasForeignKey("NurserySchoolWebPortal.Data.Models.Principal", "UserId")

@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-
+    using System.ComponentModel.DataAnnotations.Schema;
     using NurserySchoolWebPortal.Data.Common.Models;
 
     public class NurserySchool : BaseDeletableModel<int>

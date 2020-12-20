@@ -6,6 +6,8 @@
     {
         TeachersViewModel All(int page, int teachersPerPage);
 
-        int GetCount();
+        TeachersViewModel AllPerGroup(int groupId, int page, int teachersPerPage);
+
+        int GetCount(int groupId);
     }
 }

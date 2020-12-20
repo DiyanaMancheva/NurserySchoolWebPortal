@@ -12,6 +12,8 @@
 
         public int NurseryGroupId { get; set; }
 
+        public string NurseryGroup { get; set; }
+
         public string NurserySchool { get; set; }
 
         public string ProfilePic { get; set; }

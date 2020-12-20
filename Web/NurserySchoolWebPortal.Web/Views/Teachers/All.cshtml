@@ -1,202 +1,203 @@
 ﻿@model NurserySchoolWebPortal.Web.ViewModels.Teachers.TeachersListViewModel
-<!--<link href="~/css/posts.css" rel="stylesheet" asp-append-version="true" />
+@using NurserySchoolWebPortal.Common
 
-<hr />
+<link href="~/css/posts.css" rel="stylesheet" asp-append-version="true" />
+
+<!--<hr />
 
 <div class="container my-4">
 
-    <hr class="my-4">-->
-<!--Carousel Wrapper-->
-<!--<div id="carousel-demo" class="carousel slide" data-ride="carousel">-->
+    <hr class="my-4">
+    Carousel Wrapper-->
+    <!--div id="carousel-demo" class="carousel slide" data-ride="carousel">-->
 <!--Slides-->
-<!--<div class="carousel-inner" role="listbox">-->
-<!--First slide-->
-<!--<div class="carousel-item active">
+<!--<div class="carousel-inner" role="listbox">
+    <!--First slide-->
+    <!--<div class="carousel-item active">
 
-    <div class="row">
-        <div class="col-md-4">
-            <div class="card mb-2">
-                <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(34).jpg"
-                     alt="Card image cap">
-                <div class="card-body">
-                    <h4 class="card-title">Card title</h4>
-                    <p class="card-text">
-                        Some quick example text to build on the card title and make up the bulk of the
-                        card's content.
-                    </p>
-                    <a class="btn btn-primary">Button</a>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card mb-2">
+                    <img class="card-img-top" src="~/img/nurserySchools/1.jpg"
+                         alt="Card image cap">
+                    <div class="card-body">
+                        <h4 class="card-title">Card title</h4>
+                        <p class="card-text">
+                            Some quick example text to build on the card title and make up the bulk of the
+                            card's content.
+                        </p>
+                        <a class="btn btn-primary">Button</a>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="col-md-4 clearfix d-none d-md-block">
-            <div class="card mb-2">
-                <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(18).jpg"
-                     alt="Card image cap">
-                <div class="card-body">
-                    <h4 class="card-title">Card title</h4>
-                    <p class="card-text">
-                        Some quick example text to build on the card title and make up the bulk of the
-                        card's content.
-                    </p>
-                    @if (this.User.IsInRole("Administrator"))
-                    {
-                        <a class="btn btn-primary">Edit</a>
-                    }
+            <div class="col-md-4 clearfix d-none d-md-block">
+                <div class="card mb-2">
+                    <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(18).jpg"
+                         alt="Card image cap">
+                    <div class="card-body">
+                        <h4 class="card-title">Card title</h4>
+                        <p class="card-text">
+                            Some quick example text to build on the card title and make up the bulk of the
+                            card's content.
+                        </p>
+                        if (this.User.IsInRole("Administrator"))
+                        {
+                            <a class="btn btn-primary">Edit</a>
+                        }
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="col-md-4 clearfix d-none d-md-block">
-            <div class="card mb-2">
-                <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(35).jpg"
-                     alt="Card image cap">
-                <div class="card-body">
-                    <h4 class="card-title">Card title</h4>
-                    <p class="card-text">
-                        Some quick example text to build on the card title and make up the bulk of the
-                        card's content.
-                    </p>
-                    <a class="btn btn-primary">Button</a>
+            <div class="col-md-4 clearfix d-none d-md-block">
+                <div class="card mb-2">
+                    <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(35).jpg"
+                         alt="Card image cap">
+                    <div class="card-body">
+                        <h4 class="card-title">Card title</h4>
+                        <p class="card-text">
+                            Some quick example text to build on the card title and make up the bulk of the
+                            card's content.
+                        </p>
+                        <a class="btn btn-primary">Button</a>
+                    </div>
                 </div>
             </div>
-        </div>
+        </div>-->
+        <!-- Next / Previous controls here -->
+        <!--<a class="left carousel-control" href="#carousel-demo" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a class="right carousel-control" href="#carousel-demo" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
+
     </div>-->
-<!-- Next / Previous controls here -->
-<!--<a class="left carousel-control" href="#carousel-demo" data-slide="prev">
-        <span class="glyphicon glyphicon-chevron-left"></span>
-    </a>
-    <a class="right carousel-control" href="#carousel-demo" data-slide="next">
-        <span class="glyphicon glyphicon-chevron-right"></span>
-    </a>
+    <!--/.First slide-->
+    <!--Second slide-->
+    <!--<div class="carousel-item">
 
-</div>-->
-<!--/.First slide-->
-<!--Second slide-->
-<!--<div class="carousel-item">
-
-    <div class="row">
-        <div class="col-md-4">
-            <div class="card mb-2">
-                <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(60).jpg"
-                     alt="Card image cap">
-                <div class="card-body">
-                    <h4 class="card-title">Card title</h4>
-                    <p class="card-text">
-                        Some quick example text to build on the card title and make up the bulk of the
-                        card's content.
-                    </p>
-                    <a class="btn btn-primary">Button</a>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card mb-2">
+                    <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(60).jpg"
+                         alt="Card image cap">
+                    <div class="card-body">
+                        <h4 class="card-title">Card title</h4>
+                        <p class="card-text">
+                            Some quick example text to build on the card title and make up the bulk of the
+                            card's content.
+                        </p>
+                        <a class="btn btn-primary">Button</a>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="col-md-4 clearfix d-none d-md-block">
-            <div class="card mb-2">
-                <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(47).jpg"
-                     alt="Card image cap">
-                <div class="card-body">
-                    <h4 class="card-title">Card title</h4>
-                    <p class="card-text">
-                        Some quick example text to build on the card title and make up the bulk of the
-                        card's content.
-                    </p>
-                    <a class="btn btn-primary">Button</a>
+            <div class="col-md-4 clearfix d-none d-md-block">
+                <div class="card mb-2">
+                    <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(47).jpg"
+                         alt="Card image cap">
+                    <div class="card-body">
+                        <h4 class="card-title">Card title</h4>
+                        <p class="card-text">
+                            Some quick example text to build on the card title and make up the bulk of the
+                            card's content.
+                        </p>
+                        <a class="btn btn-primary">Button</a>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="col-md-4 clearfix d-none d-md-block">
-            <div class="card mb-2">
-                <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(48).jpg"
-                     alt="Card image cap">
-                <div class="card-body">
-                    <h4 class="card-title">Card title</h4>
-                    <p class="card-text">
-                        Some quick example text to build on the card title and make up the bulk of the
-                        card's content.
-                    </p>
-                    <a class="btn btn-primary">Button</a>
+            <div class="col-md-4 clearfix d-none d-md-block">
+                <div class="card mb-2">
+                    <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(48).jpg"
+                         alt="Card image cap">
+                    <div class="card-body">
+                        <h4 class="card-title">Card title</h4>
+                        <p class="card-text">
+                            Some quick example text to build on the card title and make up the bulk of the
+                            card's content.
+                        </p>
+                        <a class="btn btn-primary">Button</a>
+                    </div>
                 </div>
             </div>
-        </div>
+        </div>-->
+        <!-- Next / Previous controls here -->
+        <!--<a class="left carousel-control" href="#carousel-demo" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a class="right carousel-control" href="#carousel-demo" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
+
     </div>-->
-<!-- Next / Previous controls here -->
-<!--<a class="left carousel-control" href="#carousel-demo" data-slide="prev">
-        <span class="glyphicon glyphicon-chevron-left"></span>
-    </a>
-    <a class="right carousel-control" href="#carousel-demo" data-slide="next">
-        <span class="glyphicon glyphicon-chevron-right"></span>
-    </a>
+    <!--/.Second slide-->
+    <!--Third slide-->
+    <!--<div class="carousel-item">
 
-</div>-->
-<!--/.Second slide-->
-<!--Third slide-->
-<!--<div class="carousel-item">
-
-    <div class="row">
-        <div class="col-md-4">
-            <div class="card mb-2">
-                <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Horizontal/Food/4-col/img%20(53).jpg"
-                     alt="Card image cap">
-                <div class="card-body">
-                    <h4 class="card-title">Card title</h4>
-                    <p class="card-text">
-                        Some quick example text to build on the card title and make up the bulk of the
-                        card's content.
-                    </p>
-                    <a class="btn btn-primary">Button</a>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card mb-2">
+                    <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Horizontal/Food/4-col/img%20(53).jpg"
+                         alt="Card image cap">
+                    <div class="card-body">
+                        <h4 class="card-title">Card title</h4>
+                        <p class="card-text">
+                            Some quick example text to build on the card title and make up the bulk of the
+                            card's content.
+                        </p>
+                        <a class="btn btn-primary">Button</a>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="col-md-4 clearfix d-none d-md-block">
-            <div class="card mb-2">
-                <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Horizontal/Food/4-col/img%20(45).jpg"
-                     alt="Card image cap">
-                <div class="card-body">
-                    <h4 class="card-title">Card title</h4>
-                    <p class="card-text">
-                        Some quick example text to build on the card title and make up the bulk of the
-                        card's content.
-                    </p>
-                    <a class="btn btn-primary">Button</a>
+            <div class="col-md-4 clearfix d-none d-md-block">
+                <div class="card mb-2">
+                    <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Horizontal/Food/4-col/img%20(45).jpg"
+                         alt="Card image cap">
+                    <div class="card-body">
+                        <h4 class="card-title">Card title</h4>
+                        <p class="card-text">
+                            Some quick example text to build on the card title and make up the bulk of the
+                            card's content.
+                        </p>
+                        <a class="btn btn-primary">Button</a>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="col-md-4 clearfix d-none d-md-block">
-            <div class="card mb-2">
-                <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Horizontal/Food/4-col/img%20(51).jpg"
-                     alt="Card image cap">
-                <div class="card-body">
-                    <h4 class="card-title">Card title</h4>
-                    <p class="card-text">
-                        Some quick example text to build on the card title and make up the bulk of the
-                        card's content.
-                    </p>
-                    <a class="btn btn-primary">Button</a>
+            <div class="col-md-4 clearfix d-none d-md-block">
+                <div class="card mb-2">
+                    <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Horizontal/Food/4-col/img%20(51).jpg"
+                         alt="Card image cap">
+                    <div class="card-body">
+                        <h4 class="card-title">Card title</h4>
+                        <p class="card-text">
+                            Some quick example text to build on the card title and make up the bulk of the
+                            card's content.
+                        </p>
+                        <a class="btn btn-primary">Button</a>
+                    </div>
                 </div>
             </div>
-        </div>
+        </div>-->
+        <!-- Next / Previous controls here -->
+        <!--<a class="left carousel-control" href="#carousel-demo" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a class="right carousel-control" href="#carousel-demo" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
+
     </div>-->
-<!-- Next / Previous controls here -->
-<!--<a class="left carousel-control" href="#carousel-demo" data-slide="prev">
-        <span class="glyphicon glyphicon-chevron-left"></span>
-    </a>
-    <a class="right carousel-control" href="#carousel-demo" data-slide="next">
-        <span class="glyphicon glyphicon-chevron-right"></span>
-    </a>
-
-</div>-->
-<!--/.Third slide-->
-<!--</div>-->
-<!--/.Slides-->
+    <!--/.Third slide-->
 <!--</div>-->
 <!--/.Carousel Wrapper-->
 <!--</div>
 
 <hr />-->
+
 
 
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -206,58 +207,88 @@
 
 <div class="container">
     <div class="row">
-        @foreach (var teacher in this.Model.Teachers.Teachers)
-        {
-            <div class="col-md-4">
-                <div class="card user-card">
-                    @*<div class="card-header">
-                            <h5>Profile</h5>
-                        </div>*@
-                    <div class="card-block">
-                        <div class="user-image">
-                            <img src="https://www.mainewomensnetwork.com/Resources/Pictures/vicki%20aqua%20headshot-smallmwn.jpg" width="200" class="img-radius img-responsive" alt="User-Profile-Image">
-                        </div>
-                        <h6 class="f-w-600 m-t-25 m-b-10">@teacher.FullName</h6>
-                        <p class="text-muted">Active | Male | Born 23.05.1992</p>
-                        <hr>
-                        <p class="text-muted m-t-15">Activity Level: 87%</p>
-                        @*<ul class="list-unstyled activity-leval">
-                                <li class="active"></li>
-                                <li class="active"></li>
-                                <li class="active"></li>
-                                <li></li>
-                                <li></li>
-                            </ul>*@
-                        @*<div class="bg-c-blue counter-block m-t-10 p-20">
-                                <div class="row">
-                                    <div class="col-4">
-                                        <i class="fa fa-comment"></i>
-                                        <p>1256</p>
-                                    </div>
-                                    <div class="col-4">
-                                        <i class="fa fa-user"></i>
-                                        <p>8562</p>
-                                    </div>
-                                    <div class="col-4">
-                                        <i class="fa fa-suitcase"></i>
-                                        <p>189</p>
-                                    </div>
-                                </div>  
-                            </div>*@
-                        <p class="m-t-15 text-muted">@teacher.PersonalMessage</p>
+            @foreach (var teacher in this.Model.Teachers.Teachers)
+            {
+                <div class="col-md-3">
+                    <div class="card mb-2">
+                        <img class="card-img-top" src="data:image/jpeg;base64,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"
+                             alt="Card image cap">
+                        <div class="card-body">
+                        <h4 class="card-title">@teacher.FullName</h4>
+                        <p class="card-text">
+                            "Some quick example text to build on the card title and make up the bulk of the
+                            card's content."
+                        </p>
                         <hr>
                         <div class="row justify-content-center user-social-link">
                             <div class="col-auto"><a href="#!"><i class="fa fa-facebook text-facebook"></i></a></div>
                             <div class="col-auto"><a href="#!"><i class="fa fa-twitter text-twitter"></i></a></div>
                             <div class="col-auto"><a href="#!"><i class="fa fa-linkedin text-linkedin"></i></a></div>
                         </div>
+                        @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                        {
+                            <a class="btn btn-primary">Edit</a>
+                        }
+                        </div>
                     </div>
                 </div>
-            </div>
-        }
+            }
+
     </div>
 </div>
 
 <hr />
-<!-- Images -->
+
+            <!--<div class="col-md-4">
+                <div class="card user-card">
+                    <!---->@*<div class="card-header">
+                            <h5>Profile</h5>
+                        </div>*@<!---->
+                    <!--<div class="card-block">
+                        <div class="user-image">
+                            <img src="https://www.mainewomensnetwork.com/Resources/Pictures/vicki%20aqua%20headshot-smallmwn.jpg" width="200" class="img-radius img-responsive" alt="User-Profile-Image">
+                        </div>
+                        <h6 class="f-w-600 m-t-25 m-b-10">teacher.FullName</h6>
+                        <p class="text-muted">Active | Male | Born 23.05.1992</p>
+                        <hr>
+                        <p class="text-muted m-t-15">Activity Level: 87%</p>-->
+                    <!---->@*<ul class="list-unstyled activity-leval">
+                            <li class="active"></li>
+                            <li class="active"></li>
+                            <li class="active"></li>
+                            <li></li>
+                            <li></li>
+                        </ul>*@
+                    @*<div class="bg-c-blue counter-block m-t-10 p-20">
+                            <div class="row">
+                                <div class="col-4">
+                                    <i class="fa fa-comment"></i>
+                                    <p>1256</p>
+                                </div>
+                                <div class="col-4">
+                                    <i class="fa fa-user"></i>
+                                    <p>8562</p>
+                                </div>
+                                <div class="col-4">
+                                    <i class="fa fa-suitcase"></i>
+                                    <p>189</p>
+                                </div>
+                            </div>
+                        </div>*@
+                    <!--<p class="m-t-15 text-muted">teacher.PersonalMessage</p>
+                                            <hr>
+                                            <div class="row justify-content-center user-social-link">
+                                                <div class="col-auto"><a href="#!"><i class="fa fa-facebook text-facebook"></i></a></div>
+                                                <div class="col-auto"><a href="#!"><i class="fa fa-twitter text-twitter"></i></a></div>
+                                                <div class="col-auto"><a href="#!"><i class="fa fa-linkedin text-linkedin"></i></a></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <!-- Images -->
+
+
 <partial name="_TeachersPagingPartial" model="Model" />

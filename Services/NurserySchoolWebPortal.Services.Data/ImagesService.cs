@@ -18,8 +18,8 @@
         public ImagesViewModel AllPerGroup(int groupId, int page, int imagesPerPage = 6)
         {
             var images = this.imagesRepository.AllAsNoTracking()
-                .OrderByDescending(x => x.CreatedOn)
                 .Where(x => x.NurseryGroupId == groupId)
+                .OrderByDescending(x => x.CreatedOn)
                 .Skip((page - 1) * imagesPerPage)
                 .Take(imagesPerPage)
                 .Select(x => new SingleImageViewModel

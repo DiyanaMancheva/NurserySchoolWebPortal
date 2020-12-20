@@ -79,7 +79,7 @@ namespace NurserySchoolWebPortal.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Settings",
+                name: "NurserySchools",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -88,12 +88,12 @@ namespace NurserySchoolWebPortal.Data.Migrations
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
-                    Value = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: false),
+                    Address = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Settings", x => x.Id);
+                    table.PrimaryKey("PK_NurserySchools", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -226,54 +226,6 @@ namespace NurserySchoolWebPortal.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Principals",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CreatedOn = table.Column<DateTime>(nullable: false),
-                    ModifiedOn = table.Column<DateTime>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false),
-                    DeletedOn = table.Column<DateTime>(nullable: true),
-                    UserId = table.Column<string>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Principals", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Principals_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "NurserySchools",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CreatedOn = table.Column<DateTime>(nullable: false),
-                    ModifiedOn = table.Column<DateTime>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false),
-                    DeletedOn = table.Column<DateTime>(nullable: true),
-                    Name = table.Column<string>(nullable: false),
-                    Address = table.Column<string>(nullable: false),
-                    PrincipalId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_NurserySchools", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_NurserySchools_Principals_PrincipalId",
-                        column: x => x.PrincipalId,
-                        principalTable: "Principals",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Menus",
                 columns: table => new
                 {
@@ -350,6 +302,36 @@ namespace NurserySchoolWebPortal.Data.Migrations
                         name: "FK_Posts_NurserySchools_NurserySchoolId",
                         column: x => x.NurserySchoolId,
                         principalTable: "NurserySchools",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Principals",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    ModifiedOn = table.Column<DateTime>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    DeletedOn = table.Column<DateTime>(nullable: true),
+                    UserId = table.Column<string>(nullable: false),
+                    NurserySchoolId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Principals", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Principals_NurserySchools_NurserySchoolId",
+                        column: x => x.NurserySchoolId,
+                        principalTable: "NurserySchools",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Principals_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -643,11 +625,6 @@ namespace NurserySchoolWebPortal.Data.Migrations
                 column: "IsDeleted");
 
             migrationBuilder.CreateIndex(
-                name: "IX_NurserySchools_PrincipalId",
-                table: "NurserySchools",
-                column: "PrincipalId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Parents_IsDeleted",
                 table: "Parents",
                 column: "IsDeleted");
@@ -700,15 +677,16 @@ namespace NurserySchoolWebPortal.Data.Migrations
                 column: "IsDeleted");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Principals_NurserySchoolId",
+                table: "Principals",
+                column: "NurserySchoolId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Principals_UserId",
                 table: "Principals",
                 column: "UserId",
                 unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Settings_IsDeleted",
-                table: "Settings",
-                column: "IsDeleted");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Teachers_IsDeleted",
@@ -754,7 +732,7 @@ namespace NurserySchoolWebPortal.Data.Migrations
                 name: "Posts");
 
             migrationBuilder.DropTable(
-                name: "Settings");
+                name: "Principals");
 
             migrationBuilder.DropTable(
                 name: "Teachers");
@@ -779,9 +757,6 @@ namespace NurserySchoolWebPortal.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "NurserySchools");
-
-            migrationBuilder.DropTable(
-                name: "Principals");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
