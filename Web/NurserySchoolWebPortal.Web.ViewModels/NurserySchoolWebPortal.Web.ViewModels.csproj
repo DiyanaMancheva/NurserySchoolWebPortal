@@ -23,4 +23,8 @@
     <ProjectReference Include="..\..\Services\NurserySchoolWebPortal.Services.Mapping\NurserySchoolWebPortal.Services.Mapping.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Administration\Teachers\" />
+  </ItemGroup>
+
 </Project>

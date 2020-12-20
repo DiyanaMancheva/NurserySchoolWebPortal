@@ -1,4 +1,6 @@
-﻿namespace NurserySchoolWebPortal.Web.ViewModels.Teachers
+﻿using System;
+
+namespace NurserySchoolWebPortal.Web.ViewModels.Teachers
 {
     public class SingleTeacherViewModel
     {
@@ -9,6 +11,14 @@
         public string LastName { get; set; }
 
         public string FullName { get; set; }
+
+        public DateTime CreatedOn { get; set; }
+
+        public DateTime ModifiedOn { get; set; }
+
+        public DateTime DeletedOn { get; set; }
+
+        public bool IsDeleted { get; set; }
 
         public int NurseryGroupId { get; set; }
 

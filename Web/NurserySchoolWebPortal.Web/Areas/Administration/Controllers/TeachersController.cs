@@ -7,6 +7,7 @@
     using Microsoft.EntityFrameworkCore;
     using NurserySchoolWebPortal.Data.Common.Repositories;
     using NurserySchoolWebPortal.Data.Models;
+    using NurserySchoolWebPortal.Web.ViewModels.Teachers;
 
     public class TeachersController : AdministrationController
     {
@@ -20,7 +21,25 @@
         // GET: Administration/Teachers
         public async Task<IActionResult> Index()
         {
-            return this.View(await this.teachersRepository.AllWithDeleted().ToListAsync());
+            var teachers = this.teachersRepository.AllAsNoTracking()
+                .Select(x => new SingleTeacherViewModel
+                {
+                    Id = x.Id,
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
+                    CreatedOn = x.CreatedOn,
+                    ModifiedOn = (System.DateTime)x.ModifiedOn,
+                    IsDeleted = x.IsDeleted,
+                    DeletedOn = (System.DateTime)x.DeletedOn,
+                })
+                .ToList();
+
+            var viewModel = new TeachersViewModel
+            {
+                Teachers = teachers,
+            };
+
+            return this.View(viewModel);
         }
 
         // GET: Administration/Teachers/Details/5
