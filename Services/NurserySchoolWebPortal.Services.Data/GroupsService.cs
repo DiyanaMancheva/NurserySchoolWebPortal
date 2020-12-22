@@ -1,0 +1,33 @@
+﻿namespace NurserySchoolWebPortal.Services.Data
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using NurserySchoolWebPortal.Data.Common.Repositories;
+    using NurserySchoolWebPortal.Data.Models;
+
+    public class GroupsService : IGroupsService
+    {
+        private readonly IDeletableEntityRepository<NurseryGroup> groupsRepository;
+
+        public GroupsService(IDeletableEntityRepository<NurseryGroup> groupsRepository)
+        {
+            this.groupsRepository = groupsRepository;
+        }
+
+        public IEnumerable<KeyValuePair<int, string>> GetAllAsKeyValuePairs()
+        {
+            var groups = this.groupsRepository.AllAsNoTracking()
+                .Select(x => new
+                {
+                    x.Id,
+                    x.Name,
+                })
+                .OrderBy(x => x.Id)
+                .ToList()
+                .Select(x => new KeyValuePair<int, string>(x.Id, x.Name));
+
+            return groups;
+        }
+    }
+}

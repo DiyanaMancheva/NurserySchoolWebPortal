@@ -7,15 +7,23 @@
     using Microsoft.EntityFrameworkCore;
     using NurserySchoolWebPortal.Data.Common.Repositories;
     using NurserySchoolWebPortal.Data.Models;
+    using NurserySchoolWebPortal.Services.Data;
     using NurserySchoolWebPortal.Web.ViewModels.Teachers;
 
     public class TeachersController : AdministrationController
     {
         private readonly IDeletableEntityRepository<Teacher> teachersRepository;
+        private readonly IGroupsService groupsService;
+        private readonly ITeachersService teachersService;
 
-        public TeachersController(IDeletableEntityRepository<Teacher> teachersRepository)
+        public TeachersController(
+            IDeletableEntityRepository<Teacher> teachersRepository,
+            IGroupsService groupsService,
+            ITeachersService teachersService)
         {
             this.teachersRepository = teachersRepository;
+            this.groupsService = groupsService;
+            this.teachersService = teachersService;
         }
 
         // GET: Administration/Teachers
@@ -63,7 +71,10 @@
         // GET: Administration/Teachers/Create
         public IActionResult Create()
         {
-            return this.View();
+            var viewModel = new TeacherInputModel();
+            viewModel.GroupsItems = this.groupsService.GetAllAsKeyValuePairs();
+
+            return this.View(viewModel);
         }
 
         // POST: Administration/Teachers/Create
@@ -71,16 +82,16 @@
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FirstName,LastName,IsDeleted,DeletedOn,Id,CreatedOn,ModifiedOn")] Teacher teacher)
+        public async Task<IActionResult> Create(TeacherInputModel input)
         {
-            if (this.ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
-                await this.teachersRepository.AddAsync(teacher);
-                await this.teachersRepository.SaveChangesAsync();
-                return this.RedirectToAction(nameof(this.Index));
+                return this.View(input);
             }
 
-            return this.View(teacher);
+            await this.teachersService.AddAsync(input);
+
+            return this.RedirectToAction(nameof(this.Index));
         }
 
         // GET: Administration/Teachers/Edit/2

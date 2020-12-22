@@ -2,6 +2,7 @@
 {
     using System;
     using System.Linq;
+    using System.Threading.Tasks;
 
     using NurserySchoolWebPortal.Data.Common.Repositories;
     using NurserySchoolWebPortal.Data.Models;
@@ -10,10 +11,35 @@
     public class TeachersService : ITeachersService
     {
         private readonly IDeletableEntityRepository<Teacher> teachersRepository;
+        private readonly IDeletableEntityRepository<NurseryGroup> groupsRepository;
 
-        public TeachersService(IDeletableEntityRepository<Teacher> teachersRepository)
+        public TeachersService(
+            IDeletableEntityRepository<Teacher> teachersRepository,
+            IDeletableEntityRepository<NurseryGroup> groupsRepository)
         {
             this.teachersRepository = teachersRepository;
+            this.groupsRepository = groupsRepository;
+        }
+
+        public async Task<int> AddAsync(TeacherInputModel input)
+        {
+            var groupId = this.groupsRepository.AllAsNoTracking()
+               .Where(x => x.Id == Int32.Parse(input.Group))
+               .Select(x => x.Id)
+               .FirstOrDefault();
+
+            var teacher = new Teacher
+            {
+                FirstName = input.FirstName,
+                LastName = input.LastName,
+                Address = input.Address,
+                DateOfBirth = input.DateOfBirth,
+                NurseryGroupId = groupId,
+            };
+
+            await this.teachersRepository.AddAsync(teacher);
+            await this.teachersRepository.SaveChangesAsync();
+            return teacher.Id;
         }
 
         public TeachersViewModel All(int page, int teachersPerPage = 3)

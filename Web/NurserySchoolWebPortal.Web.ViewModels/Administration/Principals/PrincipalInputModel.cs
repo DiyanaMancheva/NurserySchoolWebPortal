@@ -8,6 +8,8 @@
         [Required]
         public string Password { get; set; }
 
+        public int NurserySchoolId { get; set; }
+
         public string NurserySchool { get; set; }
 
         public IEnumerable<KeyValuePair<int, string>> SchoolsItems { get; set; }
