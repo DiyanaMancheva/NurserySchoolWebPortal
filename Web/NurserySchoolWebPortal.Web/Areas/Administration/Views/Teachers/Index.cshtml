@@ -26,16 +26,34 @@
             <td>
                 @Html.DisplayFor(modelItem => teacher.FirstName) @Html.DisplayFor(modelItem => teacher.LastName)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => teacher.IsDeleted)
-                @Html.DisplayFor(modelItem => teacher.DeletedOn)
-            </td>
+
+            @{var date = DateTime.Now;
+                DateTime.TryParse("01.01.0001 г. 00:00:00                ", out date);
+            }
+            @if (teacher.DeletedOn == date)
+            {
+                <td></td>
+            }
+            else
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => teacher.IsDeleted)
+                    @Html.DisplayFor(modelItem => teacher.DeletedOn)
+                </td>
+            }
             <td>
                 @Html.DisplayFor(modelItem => teacher.CreatedOn)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => teacher.ModifiedOn)
-            </td>
+            @if (teacher.ModifiedOn == date)
+            {
+                <td></td>
+            }
+            else
+            {
+                <td>
+                     @Html.DisplayFor(modelItem => teacher.ModifiedOn)
+                </td>
+            }
             <td>
                 <a asp-action="Edit" asp-route-id="@teacher.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@teacher.Id">Details</a> |

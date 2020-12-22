@@ -129,10 +129,21 @@
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, TeacherInputModel input)
         {
-            var groupId = this.groupsService.GetId(input.Group);
-            var group = this.groupsRepository.All()
-                .Where(x => x.Id == int.Parse(input.Group))
-                .FirstOrDefault();
+            var currentTeacher = this.teachersRepository.AllAsNoTracking()
+                .FirstOrDefault(x => x.Id == id);
+
+            //var date = DateTime.Now;
+            //DateTime.TryParse("01.01.0001 г. 00:00:00                ", out date);
+            //var deleted = input.DeletedOn;
+
+            //if (date.ToString() == string.Empty)
+            //{
+            //    deleted = null;
+            //}
+            //else
+            //{
+            //    deleted = input.DeletedOn;
+            //}
 
             var teacher = new Teacher
             {
@@ -145,6 +156,8 @@
                 CreatedOn = input.CreatedOn,
                 ModifiedOn = input.ModifiedOn,
                 NurseryGroupId = int.Parse(input.Group),
+                DateOfBirth = currentTeacher.DateOfBirth,
+                Gender = currentTeacher.Gender,
             };
 
             if (id != teacher.Id)
