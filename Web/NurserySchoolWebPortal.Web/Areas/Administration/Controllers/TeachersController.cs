@@ -1,5 +1,6 @@
 ﻿namespace NurserySchoolWebPortal.Web.Areas.Administration.Controllers
 {
+    using System;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -13,20 +14,22 @@
     public class TeachersController : AdministrationController
     {
         private readonly IDeletableEntityRepository<Teacher> teachersRepository;
+        private readonly IDeletableEntityRepository<NurseryGroup> groupsRepository;
         private readonly IGroupsService groupsService;
         private readonly ITeachersService teachersService;
 
         public TeachersController(
             IDeletableEntityRepository<Teacher> teachersRepository,
+            IDeletableEntityRepository<NurseryGroup> groupsRepository,
             IGroupsService groupsService,
             ITeachersService teachersService)
         {
             this.teachersRepository = teachersRepository;
+            this.groupsRepository = groupsRepository;
             this.groupsService = groupsService;
             this.teachersService = teachersService;
         }
 
-        // GET: Administration/Teachers
         public async Task<IActionResult> Index()
         {
             var teachers = this.teachersRepository.AllAsNoTracking()
@@ -68,7 +71,6 @@
             return this.View(teacher);
         }
 
-        // GET: Administration/Teachers/Create
         public IActionResult Create()
         {
             var viewModel = new TeacherInputModel();
@@ -77,9 +79,6 @@
             return this.View(viewModel);
         }
 
-        // POST: Administration/Teachers/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(TeacherInputModel input)
@@ -94,7 +93,6 @@
             return this.RedirectToAction(nameof(this.Index));
         }
 
-        // GET: Administration/Teachers/Edit/2
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -102,22 +100,53 @@
                 return this.NotFound();
             }
 
-            var teacher = this.teachersRepository.All().FirstOrDefault(x => x.Id == id);
-            if (teacher == null)
+            var teacherViewModel = this.teachersRepository.All()
+                .Where(x => x.Id == id)
+                .Select(x => new TeacherInputModel
+                {
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
+                    Address = x.Address,
+                    ModifiedOn = (DateTime)x.ModifiedOn,
+                    CreatedOn = x.CreatedOn,
+                    IsDeleted = x.IsDeleted,
+                    DeletedOn = (DateTime)x.DeletedOn,
+                    //NurserySchoolId = x.NurserySchoolId,
+                })
+                .FirstOrDefault();
+
+            teacherViewModel.GroupsItems = this.groupsService.GetAllAsKeyValuePairs();
+
+            if (teacherViewModel == null)
             {
                 return this.NotFound();
             }
 
-            return this.View(teacher);
+            return this.View(teacherViewModel);
         }
 
-        // POST: Administration/Teachers/Edit/2
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("FirstName,LastName,NurserySchool,IsDeleted,DeletedOn,Id,CreatedOn,ModifiedOn")] Teacher teacher)
+        public async Task<IActionResult> Edit(int id, TeacherInputModel input)
         {
+            var groupId = this.groupsService.GetId(input.Group);
+            var group = this.groupsRepository.All()
+                .Where(x => x.Id == int.Parse(input.Group))
+                .FirstOrDefault();
+
+            var teacher = new Teacher
+            {
+                Id = input.Id,
+                FirstName = input.FirstName,
+                LastName = input.LastName,
+                Address = input.Address,
+                IsDeleted = input.IsDeleted,
+                DeletedOn = input.DeletedOn,
+                CreatedOn = input.CreatedOn,
+                ModifiedOn = input.ModifiedOn,
+                NurseryGroupId = int.Parse(input.Group),
+            };
+
             if (id != teacher.Id)
             {
                 return this.NotFound();
@@ -132,7 +161,7 @@
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!this.CategoryExists(teacher.Id))
+                    if (!this.TeacherExists(teacher.Id))
                     {
                         return this.NotFound();
                     }
@@ -178,7 +207,7 @@
             return this.RedirectToAction(nameof(this.Index));
         }
 
-        private bool CategoryExists(int id)
+        private bool TeacherExists(int id)
         {
             return this.teachersRepository.All().Any(e => e.Id == id);
         }

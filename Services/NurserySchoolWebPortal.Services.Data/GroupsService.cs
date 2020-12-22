@@ -29,5 +29,15 @@
 
             return groups;
         }
+
+        public int GetId(string name)
+        {
+            var groupId = this.groupsRepository.All()
+                .Where(x => x.Name == name)
+                .Select(x => x.Id)
+                .FirstOrDefault();
+
+            return groupId;
+        }
     }
 }

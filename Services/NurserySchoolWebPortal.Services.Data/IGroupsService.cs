@@ -4,6 +4,8 @@
 
     public interface IGroupsService
     {
+        int GetId(string name);
+
         IEnumerable<KeyValuePair<int, string>> GetAllAsKeyValuePairs();
     }
 }

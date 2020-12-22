@@ -43,7 +43,7 @@
                     FirstName = x.User.FirstName,
                     LastName = x.User.LastName,
                     CreatedOn = x.CreatedOn,
-                    ModifiedOn = x.ModifiedOn,
+                    ModifiedOn = x.ModifiedOn == null ? x.ModifiedOn : null,
                     IsDeleted = x.IsDeleted,
                     DeletedOn = x.DeletedOn,
                     SchoolId = x.NurserySchoolId,
