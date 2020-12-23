@@ -19,31 +19,33 @@
         private readonly IDeletableEntityRepository<ApplicationUser> usersRepository;
         private readonly IPrincipalsService principalsService;
         private readonly ISchoolsService schoolsService;
+        private readonly IDeletableEntityRepository<NurserySchool> schoolsRepository;
 
         public PrincipalsController(
             IDeletableEntityRepository<Principal> principalsRepository,
             IDeletableEntityRepository<ApplicationUser> usersRepository,
             IPrincipalsService principalsService,
-            ISchoolsService schoolsService)
+            ISchoolsService schoolsService,
+            IDeletableEntityRepository<NurserySchool> schoolsRepository)
 
         {
             this.principalsRepository = principalsRepository;
             this.usersRepository = usersRepository;
             this.principalsService = principalsService;
             this.schoolsService = schoolsService;
+            this.schoolsRepository = schoolsRepository;
         }
 
-        // GET: Administration/Principals
         public async Task<IActionResult> Index()
         {
-            var principals = this.principalsRepository.AllAsNoTracking()
+            var principals = this.principalsRepository.AllAsNoTrackingWithDeleted()
                 .Select(x => new PrincipalViewModel
                 {
                     Id = x.Id,
                     FirstName = x.User.FirstName,
                     LastName = x.User.LastName,
                     CreatedOn = x.CreatedOn,
-                    ModifiedOn = x.ModifiedOn == null ? x.ModifiedOn : null,
+                    ModifiedOn = x.ModifiedOn,
                     IsDeleted = x.IsDeleted,
                     DeletedOn = x.DeletedOn,
                     SchoolId = x.NurserySchoolId,
@@ -58,25 +60,48 @@
             return this.View(viewModel);
         }
 
-        //// GET: Administration/Principals/Details/5
-        //public async Task<IActionResult> Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return this.NotFound();
-        //    }
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return this.NotFound();
+            }
 
-        //    var principal = await this.principalsRepository.All()
-        //        .FirstOrDefaultAsync(x => x.Id == id);
-        //    if (principal == null)
-        //    {
-        //        return this.NotFound();
-        //    }
 
-        //    return this.View(principal);
-        //}
+            var schoolName = this.schoolsRepository.AllAsNoTracking()
+                .Where(x => x.Principal.Id == id)
+                .Select(x => x.Name)
+                .FirstOrDefault();
 
-        // GET: Administration/Principals/Create
+            var principalViewModel = await this.principalsRepository.All()
+                .Where(x => x.Id == id)
+                .Select(x => new PrincipalViewModel
+                {
+                    Id = x.Id,
+                    FirstName = x.User.FirstName,
+                    LastName = x.User.LastName,
+                    NurserySchool = schoolName,
+                    DateOfBirthShort = x.User.DateOfBirth.ToShortDateString(),
+                    Address = x.User.Address,
+                    PhoneNumber = x.User.PhoneNumber,
+                    UserName = x.User.UserName,
+                    Email = x.User.Email,
+                    CreatedOn = x.CreatedOn,
+                    ModifiedOn = (DateTime)x.ModifiedOn,
+                    DeletedOn = (DateTime)x.DeletedOn,
+                    IsDeleted = x.IsDeleted,
+                })
+                .FirstOrDefaultAsync();
+
+
+            if (principalViewModel == null)
+            {
+                return this.NotFound();
+            }
+
+            return this.View(principalViewModel);
+        }
+
         public IActionResult Create()
         {
             var viewModel = new PrincipalInputModel();
@@ -84,9 +109,6 @@
             return this.View(viewModel);
         }
 
-        // POST: Administration/Principals/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(PrincipalInputModel input)
@@ -111,17 +133,19 @@
 
             var principalViewModel = this.usersRepository.All()
                 .Where(x => x.Principal.Id == id)
-                //.Select(x => new PrincipalInputModel
-                //{
-                //    ModifiedOn = x.ModifiedOn,
-                //    CreatedOn = x.CreatedOn,
-                //    IsDeleted = x.IsDeleted,
-                //    DeletedOn = x.DeletedOn,
-                //    NurserySchoolId = x.NurserySchoolId,
-                //})
+                .Select(x => new PrincipalInputModel
+                {
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
+                    UserName = x.UserName,
+                    Email = x.Email,
+                    PhoneNumber = x.PhoneNumber,
+                    Address = x.Address,
+                    //NurserySchoolId = x.NurserySchoolId,
+                })
                 .FirstOrDefault();
 
-            //principalViewModel.SchoolsItems = this.schoolsService.GetAllAsKeyValuePairs();
+            principalViewModel.SchoolsItems = this.schoolsService.GetAllAsKeyValuePairs();
 
             if (principalViewModel == null)
             {
@@ -136,105 +160,132 @@
         //// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,UserName,Email,Address,PhoneNumber,IsDeleted,DeletedOn,CreatedOn,ModifiedOn")] ApplicationUser user)
+        public async Task<IActionResult> Edit(int id, [Bind("FirstName,Id,LastName,Email,Address,PhoneNumber,UserName,NurserySchool")]PrincipalViewModel input)
         {
-            //if (id != user.Principal.Id)
-            //{
-            //  //return this.NotFound();
-            //    return this.RedirectToAction(nameof(this.Index));
-            //}
+            var currentUser = this.usersRepository.AllAsNoTracking()
+                .FirstOrDefault(x => x.Principal.Id == id);
+
+            var user = new ApplicationUser
+            {
+                Id = currentUser.Id,
+                FirstName = input.FirstName,
+                LastName = input.LastName,
+                UserName = input.UserName,
+                Email = input.Email,
+                PhoneNumber = input.PhoneNumber,
+                Address = input.Address,
+                CreatedOn = currentUser.CreatedOn,
+                ModifiedOn = currentUser.ModifiedOn,
+                IsDeleted = currentUser.IsDeleted,
+                Gender = currentUser.Gender,
+                UserType = currentUser.UserType,
+                DateOfBirth = currentUser.DateOfBirth,
+                //Principal = principal,
+                AccessFailedCount = currentUser.AccessFailedCount,
+                LockoutEnabled = currentUser.LockoutEnabled,
+                TwoFactorEnabled = currentUser.TwoFactorEnabled,
+                PhoneNumberConfirmed = currentUser.PhoneNumberConfirmed,
+                EmailConfirmed = currentUser.EmailConfirmed,
+            };
+
+            var principal = new Principal
+            {
+                Id = id,
+                CreatedOn = currentUser.CreatedOn,
+                ModifiedOn = currentUser.ModifiedOn,
+                UserId = user.Id,
+                User = user,
+                IsDeleted = currentUser.IsDeleted,
+                NurserySchoolId = int.Parse(input.NurserySchool),
+            };
+
+            if (id != input.Id)
+            {
+                return this.NotFound();
+            }
 
             if (this.ModelState.IsValid)
             {
                 try
                 {
-                    //var currentUser = this.usersRepository.All()
-                    //    .FirstOrDefault(x => x.Id == input.Id);
-
-                    //var user = new ApplicationUser
-                    //{
-                    //    FirstName = input.FirstName,
-                    //    LastName = input.LastName,
-                    //    UserName = input.UserName,
-                    //    Email = input.Email,
-                    //    Address = input.Address,
-                    //    PhoneNumber = input.PhoneNumber,
-                    //    CreatedOn = input.CreatedOn,
-                    //    ModifiedOn = input.ModifiedOn,
-                    //    IsDeleted = input.IsDeleted,
-                    //    DeletedOn = input.DeletedOn,
-                    //};
-
-                    //user.Principal.NurserySchoolId = Int32.Parse(input.NurserySchool);
-
+                    this.principalsRepository.Update(principal);
                     //this.usersRepository.Update(user);
-
-                    var userId = this.usersRepository.AllAsNoTracking()
-                        .Where(x => x.Principal.Id == id)
-                        .Select(x => x.Id)
-                        .FirstOrDefault();
-
-                    user.Id = userId;
-
-                    this.usersRepository.Update(user);
-
-                    //await this.usersRepository.SaveChangesAsync();
                     await this.usersRepository.SaveChangesAsync();
+                    await this.principalsRepository.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    //if (!this.PrincipalExists(user.Principal.Id))
-                    //{
-                    //    return this.NotFound();
-                    //}
-                    //else
-                    //{
-                    //    throw;
-                    //}
-
-                    return this.NotFound();
+                    if (!this.PrincipalExists(principal.Id))
+                    {
+                        return this.NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
                 }
 
                 return this.RedirectToAction(nameof(this.Index));
-                //return this.NotFound();
             }
 
             return this.View(user);
         }
 
-        //// GET: Administration/Principals/Delete/2
-        //public async Task<IActionResult> Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return this.NotFound();
-        //    }
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return this.NotFound();
+            }
 
-        //    var principal = await this.principalsRepository.All()
-        //        .FirstOrDefaultAsync(x => x.Id == id);
-        //    if (principal == null)
-        //    {
-        //        return this.NotFound();
-        //    }
+            var principalViewModel = await this.principalsRepository.All()
+                .Where(x => x.Id == id)
+                .Select(x => new PrincipalViewModel
+                {
+                    Id = x.Id,
+                    FirstName = x.User.FirstName,
+                    LastName = x.User.LastName,
+                    NurserySchool = x.School.Name,
+                    DateOfBirthShort = x.User.DateOfBirth.ToShortDateString(),
+                    Address = x.User.Address,
+                    UserName = x.User.UserName,
+                    PhoneNumber = x.User.PhoneNumber,
+                    Email = x.User.Email,
 
-        //    return this.View(principal);
-        //}
+                    CreatedOn = x.CreatedOn,
+                    ModifiedOn = (DateTime)x.ModifiedOn,
+                    DeletedOn = (DateTime)x.DeletedOn,
+                    IsDeleted = x.IsDeleted,
+                })
+                .FirstOrDefaultAsync();
 
-        //// POST: Administration/Categories/Delete/2
-        //[HttpPost]
-        //[ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> DeleteConfirmed(int id)
-        //{
-        //    var principal = this.principalsRepository.All().FirstOrDefault(x => x.Id == id);
-        //    this.principalsRepository.Delete(principal);
-        //    await this.principalsRepository.SaveChangesAsync();
-        //    return this.RedirectToAction(nameof(this.Index));
-        //}
+            if (principalViewModel == null)
+            {
+                return this.NotFound();
+            }
+
+            return this.View(principalViewModel);
+        }
+
+        // POST: Administration/Categories/Delete/2
+        [HttpPost]
+        [ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var principal = this.principalsRepository.All().FirstOrDefault(x => x.Id == id);
+            var user = this.usersRepository.All().FirstOrDefault(x => x.Principal.Id == id);
+            this.principalsRepository.Delete(principal);
+            this.usersRepository.Delete(user);
+            await this.principalsRepository.SaveChangesAsync();
+            await this.usersRepository.SaveChangesAsync();
+            return this.RedirectToAction(nameof(this.Index));
+        }
 
         private bool PrincipalExists(int id)
         {
             return this.principalsRepository.All().Any(e => e.Id == id);
         }
+
     }
 }

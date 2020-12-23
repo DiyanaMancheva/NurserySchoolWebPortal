@@ -5,6 +5,8 @@
 
     public class PrincipalInputModel : NurserySchoolWebPortal.Data.Models.ApplicationUser
     {
+        public int Id { get; set; }
+
         [Required]
         public string Password { get; set; }
 

@@ -5,5 +5,9 @@
         public int Id { get; set; }
 
         public int SchoolId { get; set; }
+
+        public string NurserySchool { get; set; }
+
+        public string DateOfBirthShort { get; set; }
     }
 }
