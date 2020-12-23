@@ -32,7 +32,7 @@
 
         public async Task<IActionResult> Index()
         {
-            var teachers = this.teachersRepository.AllAsNoTracking()
+            var teachers = this.teachersRepository.AllAsNoTrackingWithDeleted()
                 .Select(x => new SingleTeacherViewModel
                 {
                     Id = x.Id,
@@ -53,7 +53,6 @@
             return this.View(viewModel);
         }
 
-        // GET: Administration/Teachers/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -61,14 +60,29 @@
                 return this.NotFound();
             }
 
-            var teacher = await this.teachersRepository.All()
-                .FirstOrDefaultAsync(x => x.Id == id);
-            if (teacher == null)
+            var teacherViewModel = await this.teachersRepository.All()
+                .Where(x => x.Id == id)
+                .Select(x => new SingleTeacherViewModel
+                {
+                    Id = x.Id,
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
+                    NurseryGroup = x.NurseryGroup.Name,
+                    DateOfBirth = x.DateOfBirth.ToShortDateString(),
+                    Address = x.Address,
+                    CreatedOn = x.CreatedOn,
+                    ModifiedOn = (DateTime)x.ModifiedOn,
+                    DeletedOn = (DateTime)x.DeletedOn,
+                    IsDeleted = x.IsDeleted,
+                })
+                .FirstOrDefaultAsync();
+
+            if (teacherViewModel == null)
             {
                 return this.NotFound();
             }
 
-            return this.View(teacher);
+            return this.View(teacherViewModel);
         }
 
         public IActionResult Create()
@@ -111,7 +125,6 @@
                     CreatedOn = x.CreatedOn,
                     IsDeleted = x.IsDeleted,
                     DeletedOn = (DateTime)x.DeletedOn,
-                    //NurserySchoolId = x.NurserySchoolId,
                 })
                 .FirstOrDefault();
 
@@ -190,7 +203,6 @@
             return this.View(teacher);
         }
 
-        // GET: Administration/Teachers/Delete/2
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -198,17 +210,31 @@
                 return this.NotFound();
             }
 
-            var teacher = await this.teachersRepository.All()
-                .FirstOrDefaultAsync(x => x.Id == id);
-            if (teacher == null)
+            var teacherViewModel = await this.teachersRepository.All()
+                .Where(x => x.Id == id)
+                .Select(x => new SingleTeacherViewModel
+                {
+                    Id = x.Id,
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
+                    NurseryGroup = x.NurseryGroup.Name,
+                    DateOfBirth = x.DateOfBirth.ToShortDateString(),
+                    Address = x.Address,
+                    CreatedOn = x.CreatedOn,
+                    ModifiedOn = (DateTime)x.ModifiedOn,
+                    DeletedOn = (DateTime)x.DeletedOn,
+                    IsDeleted = x.IsDeleted,
+                })
+                .FirstOrDefaultAsync();
+
+            if (teacherViewModel == null)
             {
                 return this.NotFound();
             }
 
-            return this.View(teacher);
+            return this.View(teacherViewModel);
         }
 
-        // POST: Administration/Teachers/Delete/2
         [HttpPost]
         [ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -222,7 +248,7 @@
 
         private bool TeacherExists(int id)
         {
-            return this.teachersRepository.All().Any(e => e.Id == id);
+            return this.teachersRepository.All().Any(x => x.Id == id);
         }
     }
 }

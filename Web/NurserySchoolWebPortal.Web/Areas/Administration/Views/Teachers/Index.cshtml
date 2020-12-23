@@ -51,25 +51,28 @@
             else
             {
                 <td>
-                     @Html.DisplayFor(modelItem => teacher.ModifiedOn)
+                    @Html.DisplayFor(modelItem => teacher.ModifiedOn)
                 </td>
             }
-            <td>
-                <a asp-action="Edit" asp-route-id="@teacher.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@teacher.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@teacher.Id">Delete</a>
-            </td>
-        </tr>
-                    }
-                </tbody>
-            </table>
-
-            @section Scripts
+            @if (!teacher.IsDeleted)
             {
-                <script>
-                    $(document).ready(function () {
-                        $('#DataTable').DataTable();
-                    });
-                </script>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@teacher.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@teacher.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@teacher.Id">Delete</a>
+                </td>
             }
+        </tr>
+    }
+     </tbody>
+ </table>
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+            $('#DataTable').DataTable();
+        });
+    </script>
+}
 

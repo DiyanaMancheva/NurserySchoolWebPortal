@@ -12,6 +12,10 @@ namespace NurserySchoolWebPortal.Web.ViewModels.Teachers
 
         public string FullName { get; set; }
 
+        public string Address { get; set; }
+
+        public string DateOfBirth { get; set; }
+
         public DateTime CreatedOn { get; set; }
 
         public DateTime ModifiedOn { get; set; }
