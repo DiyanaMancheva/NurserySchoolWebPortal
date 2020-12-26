@@ -1,0 +1,55 @@
+﻿@model NurserySchoolWebPortal.Web.ViewModels.Schools.SchoolInputModel
+@*@model NurserySchoolWebPortal.Data.Models.Teacher*@
+
+@{
+    ViewData["Title"] = "Edit";
+    var GroupsItems = this.Model.GroupsItems.Select(x => new SelectListItem(x.Value, x.Key.ToString()));
+}
+
+<h1>Edit</h1>
+
+<h4>School</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address" class="control-label"></label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            @*<div class="form-group">
+                <a asp-action="Delete" asp-route-id="@Model.Id">Remove Group</a>
+                <select asp-for="Group" class="form-control" asp-items="GroupsItems"></select>
+                <span asp-validation-for="Group" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Group" class="control-label">Add Group</label>
+                <select asp-for="Group" class="form-control" asp-items="GroupsItems"></select>
+                <span asp-validation-for="Group" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <a asp-controller="Groups" asp-action="Create">Create New Group</a>
+                <span asp-validation-for="Group" class="text-danger"></span>
+            </div>*@
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+                </div>
+            </div>
+
+            <div>
+                <a asp-action="Index">Back to List</a>
+            </div>
+
+            @section Scripts {
+                @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+            }

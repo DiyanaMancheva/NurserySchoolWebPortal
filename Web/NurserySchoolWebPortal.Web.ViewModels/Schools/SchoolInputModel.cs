@@ -2,11 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
-    using NurserySchoolWebPortal.Data.Models;
-    using NurserySchoolWebPortal.Web.ViewModels.Administration.Groups;
-    using NurserySchoolWebPortal.Web.ViewModels.Posts;
 
-    public class SingleSchoolViewModel
+    public class SchoolInputModel
     {
         public int Id { get; set; }
 
@@ -16,9 +13,7 @@
 
         public string Principal { get; set; }
 
-        public GroupsListViewModel Groups { get; set; }
-
-        public IEnumerable<SinglePostViewModel> Posts { get; set; }
+        public string Group { get; set; }
 
         public DateTime CreatedOn { get; set; }
 
@@ -27,5 +22,7 @@
         public DateTime DeletedOn { get; set; }
 
         public bool IsDeleted { get; set; }
+
+        public IEnumerable<KeyValuePair<int, string>> GroupsItems { get; set; }
     }
 }

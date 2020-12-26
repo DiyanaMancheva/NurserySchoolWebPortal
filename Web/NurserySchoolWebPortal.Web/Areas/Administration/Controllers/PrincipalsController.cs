@@ -131,9 +131,9 @@
                 return this.NotFound();
             }
 
-            var principalViewModel = this.usersRepository.All()
+            var principal = this.usersRepository.All()
                 .Where(x => x.Principal.Id == id)
-                .Select(x => new PrincipalInputModel
+                .Select(x => new ApplicationUser
                 {
                     FirstName = x.FirstName,
                     LastName = x.LastName,
@@ -145,14 +145,14 @@
                 })
                 .FirstOrDefault();
 
-            principalViewModel.SchoolsItems = this.schoolsService.GetAllAsKeyValuePairs();
+            //principalViewModel.SchoolsItems = this.schoolsService.GetAllAsKeyValuePairs();
 
-            if (principalViewModel == null)
+            if (principal == null)
             {
                 return this.NotFound();
             }
 
-            return this.View(principalViewModel);
+            return this.View(principal);
         }
 
         //// POST: Administration/Principals/Edit/2
@@ -160,10 +160,23 @@
         //// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("FirstName,Id,LastName,Email,Address,PhoneNumber,UserName,NurserySchool")]PrincipalViewModel input)
+        public async Task<IActionResult> Edit(int id, ApplicationUser input)
         {
             var currentUser = this.usersRepository.AllAsNoTracking()
-                .FirstOrDefault(x => x.Principal.Id == id);
+                    .FirstOrDefault(x => x.Principal.Id == id);
+            var currentPrincipal = this.usersRepository.AllAsNoTracking()
+                .Where(x => x.Principal.Id == id)
+                .Select(x => new Principal
+                {
+                    Id = x.Principal.Id,
+                    CreatedOn = x.Principal.CreatedOn,
+                    ModifiedOn = x.Principal.ModifiedOn,
+                    IsDeleted = x.Principal.IsDeleted,
+                    DeletedOn = x.DeletedOn,
+                    UserId = x.Id,
+                    NurserySchoolId = x.Principal.NurserySchoolId,
+                })
+                .FirstOrDefault();
 
             var user = new ApplicationUser
             {
@@ -190,16 +203,17 @@
 
             var principal = new Principal
             {
-                Id = id,
-                CreatedOn = currentUser.CreatedOn,
+                Id = currentPrincipal.Id,
+                CreatedOn = currentPrincipal.CreatedOn,
                 ModifiedOn = currentUser.ModifiedOn,
-                UserId = user.Id,
-                User = user,
+                UserId = currentPrincipal.UserId,
+                //User = user,
                 IsDeleted = currentUser.IsDeleted,
-                NurserySchoolId = int.Parse(input.NurserySchool),
+                DeletedOn = currentUser.DeletedOn,
+                NurserySchoolId = currentPrincipal.NurserySchoolId,
             };
 
-            if (id != input.Id)
+            if (id != principal.Id)
             {
                 return this.NotFound();
             }
@@ -209,13 +223,13 @@
                 try
                 {
                     this.principalsRepository.Update(principal);
-                    //this.usersRepository.Update(user);
-                    await this.usersRepository.SaveChangesAsync();
                     await this.principalsRepository.SaveChangesAsync();
+                    this.usersRepository.Update(user);
+                    await this.usersRepository.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!this.PrincipalExists(principal.Id))
+                    if (!this.PrincipalExists(user.Principal.Id))
                     {
                         return this.NotFound();
                     }

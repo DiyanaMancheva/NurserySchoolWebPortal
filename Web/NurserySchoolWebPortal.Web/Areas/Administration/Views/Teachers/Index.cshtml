@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Index";
+    DateTime.TryParse("01.01.0001 г. 00:00:00                ", out var date);
 }
 
 <h1>Teachers List</h1>
@@ -26,10 +27,6 @@
             <td>
                 @Html.DisplayFor(modelItem => teacher.FirstName) @Html.DisplayFor(modelItem => teacher.LastName)
             </td>
-
-            @{var date = DateTime.Now;
-                DateTime.TryParse("01.01.0001 г. 00:00:00                ", out date);
-            }
             @if (teacher.DeletedOn == date)
             {
                 <td></td>

@@ -1,0 +1,75 @@
+﻿@model NurserySchoolWebPortal.Web.ViewModels.Schools.SchoolsViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    DateTime.TryParse("01.01.0001 г. 00:00:00                ", out var date);
+}
+
+<h1>Schools List</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create School</a>
+</p>
+<table id="DataTable" class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>IsDeleted</th>
+            <th>CreatedOn</th>
+            <th>ModifiedOn</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var school in this.Model.Schools)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => school.Name)
+            </td>
+            @if (school.DeletedOn == date)
+            {
+                <td></td>
+            }
+            else
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => school.IsDeleted)
+                    @Html.DisplayFor(modelItem => school.DeletedOn)
+                </td>
+            }
+            <td>
+                @Html.DisplayFor(modelItem => school.CreatedOn)
+            </td>
+            @if (school.ModifiedOn == date)
+            {
+                <td></td>
+            }
+            else
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => school.ModifiedOn)
+                </td>
+            }
+            @if (!school.IsDeleted)
+            {
+                <td>
+                    <a asp-action="Edit" asp-route-id="@school.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@school.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@school.Id">Delete</a>
+                </td>
+            }
+        </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts
+            {
+    <script>
+        $(document).ready(function () {
+            $('#DataTable').DataTable();
+        });
+    </script>
+}
+
