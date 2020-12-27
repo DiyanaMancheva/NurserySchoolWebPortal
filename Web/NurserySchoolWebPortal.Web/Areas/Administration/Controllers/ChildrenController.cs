@@ -11,35 +11,39 @@
     using NurserySchoolWebPortal.Data.Common.Repositories;
     using NurserySchoolWebPortal.Data.Models;
     using NurserySchoolWebPortal.Services.Data;
-    using NurserySchoolWebPortal.Web.ViewModels.Teachers;
+    using NurserySchoolWebPortal.Web.ViewModels.Children;
 
-    public class TeachersController : AdministrationController
+    public class ChildrenController : AdministrationController
     {
-        private readonly IDeletableEntityRepository<Teacher> teachersRepository;
-        private readonly IDeletableEntityRepository<NurseryGroup> groupsRepository;
+        private readonly IDeletableEntityRepository<Child> childrenRepository;
+        private readonly IDeletableEntityRepository<ApplicationUser> usersRepository;
         private readonly IGroupsService groupsService;
-        private readonly ITeachersService teachersService;
+        private readonly ISchoolsService schoolsService;
+        private readonly IChildrenService childrenService;
 
-        public TeachersController(
-            IDeletableEntityRepository<Teacher> teachersRepository,
-            IDeletableEntityRepository<NurseryGroup> groupsRepository,
+        public ChildrenController(
+            IDeletableEntityRepository<Child> childrenRepository,
+            IDeletableEntityRepository<ApplicationUser> usersRepository,
             IGroupsService groupsService,
-            ITeachersService teachersService)
+            ISchoolsService schoolsService,
+            IChildrenService childrenService)
         {
-            this.teachersRepository = teachersRepository;
-            this.groupsRepository = groupsRepository;
+            this.childrenRepository = childrenRepository;
+            this.usersRepository = usersRepository;
             this.groupsService = groupsService;
-            this.teachersService = teachersService;
+            this.schoolsService = schoolsService;
+            this.childrenService = childrenService;
         }
 
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public IActionResult Index()
         {
-            var teachers = this.teachersRepository.AllAsNoTrackingWithDeleted()
-                .Select(x => new SingleTeacherViewModel
+            var children = this.childrenRepository.AllAsNoTrackingWithDeleted()
+                .Select(x => new ChildViewModel
                 {
                     Id = x.Id,
                     FirstName = x.FirstName,
+                    MiddleName = x.MiddleName,
                     LastName = x.LastName,
                     CreatedOn = x.CreatedOn,
                     ModifiedOn = (System.DateTime)x.ModifiedOn,
@@ -48,9 +52,9 @@
                 })
                 .ToList();
 
-            var viewModel = new TeachersViewModel
+            var viewModel = new ChildrenViewModel
             {
-                Teachers = teachers,
+                Children = children,
             };
 
             return this.View(viewModel);
@@ -64,16 +68,25 @@
                 return this.NotFound();
             }
 
-            var teacherViewModel = await this.teachersRepository.All()
+            var childViewModel = await this.childrenRepository.All()
                 .Where(x => x.Id == id)
-                .Select(x => new SingleTeacherViewModel
+                .Select(x => new ChildViewModel
                 {
                     Id = x.Id,
                     FirstName = x.FirstName,
+                    MiddleName = x.MiddleName,
                     LastName = x.LastName,
-                    NurseryGroup = x.NurseryGroup.Name,
+                    Gender = (int)x.Gender,
+                    GroupName = x.NurseryGroup.Name,
+                    NurseryGroup = x.NurseryGroupId,
+                    SchoolName = x.NurseryGroup.NurserySchool.Name,
+                    NurserySchool = x.NurseryGroup.NurserySchoolId,
                     DateOfBirth = x.DateOfBirth.ToShortDateString(),
+                    EGN = x.EGN,
                     Address = x.Address,
+                    ParentName = x.Parent.User.FirstName + " " + x.Parent.User.LastName,
+                    ParentId = x.Parent.Id,
+                    PhoneNumber = x.Parent.User.PhoneNumber,
                     CreatedOn = x.CreatedOn,
                     ModifiedOn = (DateTime)x.ModifiedOn,
                     DeletedOn = (DateTime)x.DeletedOn,
@@ -81,19 +94,20 @@
                 })
                 .FirstOrDefaultAsync();
 
-            if (teacherViewModel == null)
+            if (childViewModel == null)
             {
                 return this.NotFound();
             }
 
-            return this.View(teacherViewModel);
+            return this.View(childViewModel);
         }
 
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public IActionResult Create()
         {
-            var viewModel = new TeacherInputModel();
+            var viewModel = new ChildInputModel();
             viewModel.GroupsItems = this.groupsService.GetAllAsKeyValuePairs();
+            viewModel.SchoolsItems = this.schoolsService.GetAllAsKeyValuePairs();
 
             return this.View(viewModel);
         }
@@ -101,14 +115,14 @@
         [HttpPost]
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(TeacherInputModel input)
+        public async Task<IActionResult> Create(ChildInputModel input)
         {
             if (!this.ModelState.IsValid)
             {
                 return this.View(input);
             }
 
-            await this.teachersService.AddAsync(input);
+            await this.childrenService.AddAsync(input);
 
             return this.RedirectToAction(nameof(this.Index));
         }
@@ -121,56 +135,64 @@
                 return this.NotFound();
             }
 
-            var teacherViewModel = this.teachersRepository.All()
+            var childViewModel = this.childrenRepository.All()
                 .Where(x => x.Id == id)
-                .Select(x => new TeacherInputModel
+                .Select(x => new ChildInputModel
                 {
                     FirstName = x.FirstName,
+                    MiddleName = x.MiddleName,
                     LastName = x.LastName,
                     Address = x.Address,
-                    ModifiedOn = (DateTime)x.ModifiedOn,
+                    NurseryGroup = x.NurseryGroupId,
+                    Parent = x.Parent.Id,
+                    ParentName = x.Parent.User.FirstName + " " + x.Parent.User.LastName,
+                    PhoneNumber = x.Parent.User.PhoneNumber,
                     CreatedOn = x.CreatedOn,
-                    IsDeleted = x.IsDeleted,
+                    ModifiedOn = (DateTime)x.ModifiedOn,
                     DeletedOn = (DateTime)x.DeletedOn,
+                    IsDeleted = x.IsDeleted,
                 })
                 .FirstOrDefault();
 
-            teacherViewModel.GroupsItems = this.groupsService.GetAllAsKeyValuePairs();
+            childViewModel.GroupsItems = this.groupsService.GetAllAsKeyValuePairs();
 
-            if (teacherViewModel == null)
+            if (childViewModel == null)
             {
                 return this.NotFound();
             }
 
-            return this.View(teacherViewModel);
+            return this.View(childViewModel);
         }
 
         [HttpPost]
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, TeacherInputModel input)
+        public async Task<IActionResult> Edit(int id, ChildInputModel input)
         {
-            var currentTeacher = this.teachersRepository.AllAsNoTracking()
+            var currentChild = this.childrenRepository.AllAsNoTracking()
                 .FirstOrDefault(x => x.Id == id);
 
-            var groupId = input.Group == null ? currentTeacher.NurseryGroupId
-                                                        : int.Parse(input.Group);
-            var teacher = new Teacher
+            var groupId = input.GroupName == null ? currentChild.NurseryGroupId
+                                                        : int.Parse(input.GroupName);
+
+            var child = new Child
             {
                 Id = input.Id,
                 FirstName = input.FirstName,
+                MiddleName = input.MiddleName,
                 LastName = input.LastName,
                 Address = input.Address,
-                IsDeleted = currentTeacher.IsDeleted,
-                DeletedOn = currentTeacher.DeletedOn,
-                CreatedOn = currentTeacher.CreatedOn,
+                IsDeleted = currentChild.IsDeleted,
+                DeletedOn = currentChild.DeletedOn,
+                CreatedOn = currentChild.CreatedOn,
                 ModifiedOn = input.ModifiedOn,
                 NurseryGroupId = groupId,
-                DateOfBirth = currentTeacher.DateOfBirth,
-                Gender = currentTeacher.Gender,
+                DateOfBirth = currentChild.DateOfBirth,
+                EGN = currentChild.EGN,
+                Gender = currentChild.Gender,
             };
 
-            if (id != teacher.Id)
+            if (id != child.Id)
             {
                 return this.NotFound();
             }
@@ -179,12 +201,12 @@
             {
                 try
                 {
-                    this.teachersRepository.Update(teacher);
-                    await this.teachersRepository.SaveChangesAsync();
+                    this.childrenRepository.Update(child);
+                    await this.childrenRepository.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!this.TeacherExists(teacher.Id))
+                    if (!this.ChildExists(child.Id))
                     {
                         return this.NotFound();
                     }
@@ -197,7 +219,7 @@
                 return this.RedirectToAction(nameof(this.Index));
             }
 
-            return this.View(teacher);
+            return this.View(child);
         }
 
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
@@ -208,16 +230,21 @@
                 return this.NotFound();
             }
 
-            var teacherViewModel = await this.teachersRepository.All()
+            var childViewModel = await this.childrenRepository.All()
                 .Where(x => x.Id == id)
-                .Select(x => new SingleTeacherViewModel
+                .Select(x => new ChildViewModel
                 {
                     Id = x.Id,
                     FirstName = x.FirstName,
+                    MiddleName = x.MiddleName,
                     LastName = x.LastName,
-                    NurseryGroup = x.NurseryGroup.Name,
+                    GroupName = x.NurseryGroup.Name,
+                    SchoolName = x.NurseryGroup.NurserySchool.Name,
                     DateOfBirth = x.DateOfBirth.ToShortDateString(),
+                    EGN = x.EGN,
                     Address = x.Address,
+                    ParentName = x.Parent.User.FirstName + " " + x.Parent.User.LastName,
+                    PhoneNumber = x.Parent.User.PhoneNumber,
                     CreatedOn = x.CreatedOn,
                     ModifiedOn = (DateTime)x.ModifiedOn,
                     DeletedOn = (DateTime)x.DeletedOn,
@@ -225,12 +252,12 @@
                 })
                 .FirstOrDefaultAsync();
 
-            if (teacherViewModel == null)
+            if (childViewModel == null)
             {
                 return this.NotFound();
             }
 
-            return this.View(teacherViewModel);
+            return this.View(childViewModel);
         }
 
         [HttpPost]
@@ -239,15 +266,15 @@
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var teacher = this.teachersRepository.All().FirstOrDefault(x => x.Id == id);
-            this.teachersRepository.Delete(teacher);
-            await this.teachersRepository.SaveChangesAsync();
+            var child = this.childrenRepository.All().FirstOrDefault(x => x.Id == id);
+            this.childrenRepository.Delete(child);
+            await this.childrenRepository.SaveChangesAsync();
             return this.RedirectToAction(nameof(this.Index));
         }
 
-        private bool TeacherExists(int id)
+        private bool ChildExists(int id)
         {
-            return this.teachersRepository.All().Any(x => x.Id == id);
+            return this.childrenRepository.All().Any(x => x.Id == id);
         }
     }
 }

@@ -1,8 +1,9 @@
 ﻿namespace NurserySchoolWebPortal.Web.ViewModels.Children
 {
     using System;
+    using System.Collections.Generic;
 
-    public class ChildViewModel
+    public class ChildInputModel
     {
         public int Id { get; set; }
 
@@ -12,33 +13,27 @@
 
         public string LastName { get; set; }
 
-        public FeeViewModel Fee { get; set; }
-
-        public PersonalInfoViewModel PersonalInfo { get; set; }
-
         public int Gender { get; set; }
 
-        public string Address { get; set; }
-
-        public string DateOfBirth { get; set; }
+        public DateTime DateOfBirth { get; set; }
 
         public string EGN { get; set; }
 
-        public int NurserySchool { get; set; }
-
-        public string SchoolName { get; set; }
+        public string Address { get; set; }
 
         public int NurseryGroup { get; set; }
 
         public string GroupName { get; set; }
 
-        public ParentViewModel Parent { get; set; }
+        public int NurserySchool { get; set; }
 
-        public string PhoneNumber { get; set; }
+        public string SchoolName { get; set; }
+
+        public int Parent { get; set; }
 
         public string ParentName { get; set; }
 
-        public int ParentId { get; set; }
+        public string PhoneNumber { get; set; }
 
         public DateTime CreatedOn { get; set; }
 
@@ -47,5 +42,9 @@
         public DateTime DeletedOn { get; set; }
 
         public bool IsDeleted { get; set; }
+
+        public IEnumerable<KeyValuePair<int, string>> GroupsItems { get; set; }
+
+        public IEnumerable<KeyValuePair<int, string>> SchoolsItems { get; set; }
     }
 }

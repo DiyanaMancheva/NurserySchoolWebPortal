@@ -69,19 +69,6 @@
                                     <li class="nav-item">
                                         <a class="nav-link text-dark" asp-area="" asp-controller="Images" asp-action="AllPerSchool">Images</a>
                                     </li>
-                                        
-                                    @*<div class="dropdown">
-                                        <button class="btn  " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Images
-                                        </button>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            @foreach (var group in this.Model.Groups)Posts
-                                            {
-                                                <a class="dropdown-item" asp-controller="Images" asp-action="AllPerGroup" asp-items="@group.Id">@group.Name</a>
-                                            }
-                                        </div>
-                                    </div>*@
-
                                     <li class="nav-item">
                                         <a class="nav-link text-dark" asp-area="" asp-controller="Images" asp-action="Create">Add Image</a>
                                     </li>
@@ -91,7 +78,7 @@
                                     <li class="nav-item">
                                         <a class="nav-link text-dark" asp-area="" asp-controller="Posts" asp-action="Create">Add Post</a>
                                     </li>
-                                    
+
                                 }
                                 else if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                                 {
@@ -101,9 +88,11 @@
                                     <li class="nav-item">
                                         <a class="nav-link text-dark" asp-area="Administration" asp-controller="Teachers" asp-action="Index">Teachers</a>
                                     </li>
-
                                     <li class="nav-item">
                                         <a class="nav-link text-dark" asp-area="Administration" asp-controller="Principals" asp-action="Index">Principals</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="Administration" asp-controller="Children" asp-action="Index">Children</a>
                                     </li>
                                 }
                             }

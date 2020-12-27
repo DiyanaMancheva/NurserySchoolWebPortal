@@ -1,0 +1,75 @@
+﻿@model NurserySchoolWebPortal.Web.ViewModels.Children.ChildrenViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    DateTime.TryParse("01.01.0001 г. 00:00:00                ", out var date);
+}
+
+<h1>Children List</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create Child</a>
+</p>
+<table id="DataTable" class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>IsDeleted</th>
+            <th>CreatedOn</th>
+            <th>ModifiedOn</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var child in this.Model.Children)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => child.FirstName) @Html.DisplayFor(modelItem => child.MiddleName) @Html.DisplayFor(modelItem => child.LastName)
+            </td>
+            @if (child.DeletedOn == date)
+            {
+                <td></td>
+            }
+            else
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => child.IsDeleted)
+                    @Html.DisplayFor(modelItem => child.DeletedOn)
+                </td>
+            }
+            <td>
+                @Html.DisplayFor(modelItem => child.CreatedOn)
+            </td>
+            @if (child.ModifiedOn == date)
+            {
+                <td></td>
+            }
+            else
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => child.ModifiedOn)
+                </td>
+            }
+            @if (!child.IsDeleted)
+            {
+                <td>
+                    <a asp-action="Edit" asp-route-id="@child.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@child.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@child.Id">Delete</a>
+                </td>
+            }
+        </tr>
+    }
+     </tbody>
+ </table>
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+            $('#DataTable').DataTable();
+        });
+    </script>
+}
+

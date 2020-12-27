@@ -1,7 +1,7 @@
 ﻿namespace NurserySchoolWebPortal.Services.Data
 {
     using System.Linq;
-
+    using System.Threading.Tasks;
     using NurserySchoolWebPortal.Data.Common.Repositories;
     using NurserySchoolWebPortal.Data.Models;
     using NurserySchoolWebPortal.Web.ViewModels.Children;
@@ -26,6 +26,24 @@
             this.personalInfosRepository = personalInfosRepository;
             this.immunizationsRepository = immunizationsRepository;
             this.parentsRepository = parentsRepository;
+        }
+
+        public async Task AddAsync(ChildInputModel input)
+        {
+            var child = new Child
+            {
+                FirstName = input.FirstName,
+                MiddleName = input.MiddleName,
+                LastName = input.LastName,
+                Gender = (Gender)input.Gender,
+                DateOfBirth = input.DateOfBirth,
+                EGN = input.EGN,
+                Address = input.Address,
+                NurseryGroupId = int.Parse(input.GroupName),
+            };
+
+            await this.childrenRepository.AddAsync(child);
+            await this.childrenRepository.SaveChangesAsync();
         }
 
         public ChildViewModel ById(int id)
@@ -73,8 +91,8 @@
                     PersonalInfo = personalInfo,
                     Gender = (int)x.Gender,
                     Address = x.Address,
-                    DateOfBirth = x.DateOfBirth,
-                    NurserySchool = x.NurseryGroup.NurserySchool.Name,
+                    DateOfBirth = x.DateOfBirth.ToShortDateString(),
+                    SchoolName = x.NurseryGroup.NurserySchool.Name,
                     NurseryGroup = x.NurseryGroupId,
                     Parent = parent,
                 })

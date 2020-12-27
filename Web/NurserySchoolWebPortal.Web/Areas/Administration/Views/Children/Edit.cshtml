@@ -1,14 +1,10 @@
-﻿@model NurserySchoolWebPortal.Web.ViewModels.Teachers.TeacherInputModel
-@*@model NurserySchoolWebPortal.Data.Models.Teacher*@
-
+﻿@model NurserySchoolWebPortal.Web.ViewModels.Children.ChildInputModel
 @{
     ViewData["Title"] = "Edit";
     var GroupsItems = this.Model.GroupsItems.Select(x => new SelectListItem(x.Value, x.Key.ToString()));
 }
-
 <h1>Edit</h1>
-
-<h4>Teacher</h4>
+<h4>Child</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -18,6 +14,11 @@
                 <label asp-for="FirstName" class="control-label"></label>
                 <input asp-for="FirstName" class="form-control" />
                 <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MiddleName" class="control-label"></label>
+                <input asp-for="MiddleName" class="form-control" />
+                <span asp-validation-for="MiddleName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="LastName" class="control-label"></label>
@@ -30,11 +31,11 @@
                 <span asp-validation-for="Address" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Group"></label>
-                <select asp-for="Group" class="form-control" asp-items="GroupsItems">
+                <label asp-for="GroupName"></label>
+                <select asp-for="GroupName" class="form-control" asp-items="GroupsItems">
                     <option selected="selected"></option>
                 </select>
-                <span asp-validation-for="Group" class="text-danger"></span>
+                <span asp-validation-for="GroupName" class="text-danger"></span>
             </div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
