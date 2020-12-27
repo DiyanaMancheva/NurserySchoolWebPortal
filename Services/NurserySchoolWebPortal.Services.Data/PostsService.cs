@@ -1,6 +1,8 @@
 ﻿namespace NurserySchoolWebPortal.Services.Data
 {
+    using System;
     using System.Linq;
+    using System.Threading.Tasks;
 
     using NurserySchoolWebPortal.Data.Common.Repositories;
     using NurserySchoolWebPortal.Data.Models;
@@ -10,42 +12,40 @@
     {
         private readonly IDeletableEntityRepository<Post> postsRepository;
 
-        public PostsService(IDeletableEntityRepository<Post> postsRepository)
+        public PostsService(
+            IDeletableEntityRepository<Post> postsRepository)
         {
             this.postsRepository = postsRepository;
         }
 
-        public SinglePostViewModel GetById(int id)
+        public async Task AddAsync(PostInputModel input, int schoolId)
         {
-            var post = this.postsRepository.AllAsNoTracking()
-                 .Where(x => x.Id == id)
-                 .Select(x => new SinglePostViewModel
-                 {
-                     Id = x.Id,
-                     Title = x.Title,
-                     Content = x.Content,
-                     ImageUrl = x.ImageUrl,
-                     CreatedOn = x.CreatedOn,
-                 })
-                 .FirstOrDefault();
+            var post = new Post
+            {
+                Title = input.Title,
+                Content = input.Content,
+                ImageUrl = input.ImageUrl,
+                NurserySchoolId = schoolId,
+            };
 
-            return post;
+            await this.postsRepository.AddAsync(post);
+            await this.postsRepository.SaveChangesAsync();
         }
 
-        public PostsPerSchool AllPerSchool(int schoolId)
+        public AllPerSchool AllPerSchool(int schoolId, int postsPerPage)
         {
             var postsSlide1 = this.postsRepository.AllAsNoTracking()
                 .Where(x => x.NurserySchoolId == schoolId)
                 .Select(x => new SinglePostViewModel
-            {
-                Id = x.Id,
-                ImageUrl = x.ImageUrl,
-                Title = x.Title,
-                Content = x.Content,
-                CreatedOn = x.CreatedOn,
-            })
+                {
+                    Id = x.Id,
+                    ImageUrl = x.ImageUrl,
+                    Title = x.Title,
+                    Content = x.Content,
+                    CreatedOn = x.CreatedOn,
+                })
                 .OrderByDescending(x => x.CreatedOn)
-                .Take(4)
+                .Take(postsPerPage)
                 .ToList();
 
             var postsSlide2 = this.postsRepository.AllAsNoTracking()
@@ -59,7 +59,7 @@
                     CreatedOn = x.CreatedOn,
                 })
                 .OrderByDescending(x => x.CreatedOn)
-                .Skip(4).Take(4)
+                .Skip(postsPerPage).Take(postsPerPage)
                 .ToList();
 
             var postsSlide3 = this.postsRepository.AllAsNoTracking()
@@ -73,10 +73,10 @@
                     CreatedOn = x.CreatedOn,
                 })
                 .OrderByDescending(x => x.CreatedOn)
-                .Skip(8).Take(4)
+                .Skip(2 * postsPerPage).Take(postsPerPage)
                 .ToList();
 
-            var posts = new PostsPerSchool
+            var posts = new AllPerSchool
             {
                 PostsSlide1 = postsSlide1,
                 PostsSlide2 = postsSlide2,
@@ -84,6 +84,24 @@
             };
 
             return posts;
+        }
+
+        public SinglePostViewModel GetById(int id)
+        {
+            var post = this.postsRepository.AllAsNoTracking()
+                 .Where(x => x.Id == id)
+                 .Select(x => new SinglePostViewModel
+                 {
+                     Id = x.Id,
+                     Title = x.Title,
+                     Content = x.Content,
+                     ImageUrl = x.ImageUrl,
+                     CreatedOn = x.CreatedOn,
+                     ModifiedOn = (DateTime)x.ModifiedOn,
+                 })
+                 .FirstOrDefault();
+
+            return post;
         }
     }
 }

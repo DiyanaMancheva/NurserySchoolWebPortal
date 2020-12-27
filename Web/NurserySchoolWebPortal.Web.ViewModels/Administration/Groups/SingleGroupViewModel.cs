@@ -1,4 +1,7 @@
-﻿namespace NurserySchoolWebPortal.Web.ViewModels.Administration.Groups
+﻿using NurserySchoolWebPortal.Web.ViewModels.Images;
+using System.Collections.Generic;
+
+namespace NurserySchoolWebPortal.Web.ViewModels.Administration.Groups
 {
     public class SingleGroupViewModel
     {
@@ -11,5 +14,7 @@
         public int SchoolId { get; set; }
 
         public string Room { get; set; }
+
+        public IEnumerable<KeyValuePair<int, string>> GroupsItems { get; set; }
     }
 }

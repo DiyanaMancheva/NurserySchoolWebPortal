@@ -21,10 +21,10 @@
             this.groupsRepository = groupsRepository;
         }
 
-        public async Task<int> AddAsync(TeacherInputModel input)
+        public async Task AddAsync(TeacherInputModel input)
         {
             var groupId = this.groupsRepository.AllAsNoTracking()
-               .Where(x => x.Id == Int32.Parse(input.Group))
+               .Where(x => x.Id == int.Parse(input.Group))
                .Select(x => x.Id)
                .FirstOrDefault();
 
@@ -39,7 +39,6 @@
 
             await this.teachersRepository.AddAsync(teacher);
             await this.teachersRepository.SaveChangesAsync();
-            return teacher.Id;
         }
 
         public TeachersViewModel All(int page, int teachersPerPage = 3)

@@ -1,10 +1,11 @@
 ﻿namespace NurserySchoolWebPortal.Web.ViewModels.Administration.Groups
 {
-    using NurserySchoolWebPortal.Data.Models;
     using System.Collections.Generic;
+
+    using NurserySchoolWebPortal.Data.Models;
 
     public class GroupsListViewModel
     {
-        public IEnumerable<NurseryGroup> Groups { get; set; }
+        public IEnumerable<SingleGroupViewModel> Groups { get; set; }
     }
 }

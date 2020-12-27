@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    public class PostsPerSchool
+    public class AllPerSchool
     {
         public IEnumerable<SinglePostViewModel> PostsSlide1 { get; set; }
 

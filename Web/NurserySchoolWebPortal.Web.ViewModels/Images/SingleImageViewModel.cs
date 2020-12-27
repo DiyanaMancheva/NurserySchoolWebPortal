@@ -9,5 +9,9 @@
         public string Extension { get; set; }
 
         public int NurseryGroup { get; set; }
+
+        public int NurserySchool { get; set; }
+
+        public ImagesListViewModel Images { get; set; }
     }
 }
