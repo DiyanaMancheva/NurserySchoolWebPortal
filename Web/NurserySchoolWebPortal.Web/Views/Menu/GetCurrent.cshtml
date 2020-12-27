@@ -1,0 +1,61 @@
+﻿@model NurserySchoolWebPortal.Data.Models.Menu
+@{
+    DateTime.TryParse("01.01.0001 г. 00:00:00                ", out var date);
+}
+<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="css/blog-post.css" rel="stylesheet">
+
+<div class="container">
+
+    <div class="row">
+
+        <!-- Post Content Column -->
+        <div class="col-lg-8">
+
+            <!-- Title -->
+            <h1 class="mt-4">Week Menu From @this.Model.DateFrom To @this.Model.DateTo</h1>
+
+            <hr>
+
+            <!-- Date/Time -->
+            <p>Posted on @Model.CreatedOn</p>
+            @if (this.User.IsInRole(NurserySchoolWebPortal.Common.GlobalConstants.PrincipalRoleName))
+            {
+                @if (this.Model.ModifiedOn != date)
+                {
+                    <p>Modified on @Model.ModifiedOn</p>
+                }
+            }
+
+            <hr>
+
+            <!-- Preview Image -->
+            @*<img class="img-fluid rounded" src="" width="550" alt="image">*@
+
+            <hr>
+
+            <!-- Post Content -->
+            <p class="lead">@Model.Monday</p>
+            <p class="lead">@Model.Tuesday</p>
+            <p class="lead">@Model.Wednesday</p>
+            <p class="lead">@Model.Thursday</p>
+            <p class="lead">@Model.Friday</p>
+        </div>
+    </div>
+    <a asp-controller="Posts" asp-action="AllPerSchool" class="btn btn-primary">Back</a>
+    @if (this.User.IsInRole(NurserySchoolWebPortal.Common.GlobalConstants.PrincipalRoleName))
+    {
+        <div>
+            <a asp-controller="Menu" asp-action="Edit" asp-route-id="@this.Model.Id">Edit</a> |
+            <a asp-controller="Menu" asp-action="Delete" asp-route-id="@this.Model.Id">Delete</a>
+        </div>
+    }
+</div>
+
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+
+
+
+

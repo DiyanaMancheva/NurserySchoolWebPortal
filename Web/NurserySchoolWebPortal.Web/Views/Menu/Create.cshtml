@@ -1,0 +1,59 @@
+﻿@model NurserySchoolWebPortal.Web.ViewModels.Menu.MenuInputModel
+@{
+    ViewData["Title"] = "Create";
+}
+<h1>Create</h1>
+<h4>Menu</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="DateFrom" class="control-label"></label>
+                <input asp-for="DateFrom" class="form-control" />
+                <span asp-validation-for="DateFrom" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateTo" class="control-label"></label>
+                <input asp-for="DateTo" class="form-control" />
+                <span asp-validation-for="DateTo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Monday" class="control-label"></label>
+                <textarea asp-for="Monday" class="form-control" rows="7"></textarea>
+                <span asp-validation-for="Monday" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Tuesday" class="control-label"></label>
+                <textarea asp-for="Tuesday" class="form-control" rows="7"></textarea>
+                <span asp-validation-for="Tuesday" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Wednesday" class="control-label"></label>
+                <textarea asp-for="Wednesday" class="form-control" rows="7"></textarea>
+                <span asp-validation-for="Wednesday" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Thursday" class="control-label"></label>
+                <textarea asp-for="Thursday" class="form-control" rows="7"></textarea>
+                <span asp-validation-for="Thursday" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Friday" class="control-label"></label>
+                <textarea asp-for="Friday" class="form-control" rows="7"></textarea>
+                <span asp-validation-for="Friday" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+<div>
+    <a asp-action="AllPerSchool">All Posts</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

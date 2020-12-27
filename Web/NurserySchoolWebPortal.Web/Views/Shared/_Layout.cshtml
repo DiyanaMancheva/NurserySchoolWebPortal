@@ -1,9 +1,4 @@
 ﻿@using NurserySchoolWebPortal.Common
-@*@if (this.User.IsInRole(GlobalConstants.PrincipalRoleName))
-    {
-        @model NurserySchoolWebPortal.Web.ViewModels.Administration.Groups.GroupsListViewModel
-    }*@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -77,6 +72,12 @@
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link text-dark" asp-area="" asp-controller="Posts" asp-action="Create">Add Post</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Menu" asp-action="GetCurrent">Menu</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Menu" asp-action="Create">Add Menu</a>
                                     </li>
 
                                 }
