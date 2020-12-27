@@ -10,9 +10,9 @@ namespace NurserySchoolWebPortal.Web.ViewModels.Images
 
         public string Extension { get; set; }
 
-        public int NurseryGroupId { get; set; }
+        public int GroupId { get; set; }
 
-        public string NurseryGroup { get; set; }
+        public string Group { get; set; }
 
         public IEnumerable<KeyValuePair<int, string>> GroupsItems { get; set; }
     }

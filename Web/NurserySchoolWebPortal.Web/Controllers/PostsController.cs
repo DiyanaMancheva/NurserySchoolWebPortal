@@ -7,6 +7,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using NurserySchoolWebPortal.Common;
+    using NurserySchoolWebPortal.Data;
     using NurserySchoolWebPortal.Data.Common.Repositories;
     using NurserySchoolWebPortal.Data.Models;
     using NurserySchoolWebPortal.Services.Data;
@@ -14,17 +15,20 @@
 
     public class PostsController : BaseController
     {
+        private readonly ApplicationDbContext dbContext;
         private readonly IPostsService postsService;
         private readonly IDeletableEntityRepository<ApplicationUser> usersRepository;
         private readonly IDeletableEntityRepository<Post> postsRepository;
         private readonly IDeletableEntityRepository<NurserySchool> schoolssRepository;
 
         public PostsController(
+            ApplicationDbContext dbContext,
             IPostsService postsService,
             IDeletableEntityRepository<ApplicationUser> usersRepository,
             IDeletableEntityRepository<Post> postsRepository,
             IDeletableEntityRepository<NurserySchool> schoolssRepository)
         {
+            this.dbContext = dbContext;
             this.postsService = postsService;
             this.usersRepository = usersRepository;
             this.postsRepository = postsRepository;
@@ -39,15 +43,11 @@
 
             if (this.User.IsInRole(GlobalConstants.ParentRoleName))
             {
-                //var currentUser = this.dbContext.Parents.Include(x => x.Children).FirstOrDefault(x => x.User.Email == userName);
-                //var child = currentUser.Children.FirstOrDefault();
-                var currentUser = this.usersRepository.AllAsNoTracking()
-                    .FirstOrDefault(x => x.UserName == userName);
-                var child = currentUser.Parent.Children.FirstOrDefault();
+                var currentUser = this.dbContext.Parents.Include(x => x.Children).FirstOrDefault(x => x.User.Email == userName);
+                var child = currentUser.Children.FirstOrDefault();
                 var groupId = child.NurseryGroupId;
-                //var school = this.dbContext.NurserySchools.FirstOrDefault(x => x.NurseryGroups.Any(x => x.Id == groupId));
-                var school = this.schoolssRepository.AllAsNoTracking()
-                    .FirstOrDefault(x => x.NurseryGroups.Any(x => x.Id == groupId));
+                var school = this.dbContext.NurserySchools
+                .FirstOrDefault(x => x.NurseryGroups.Any(x => x.Id == groupId));
 
                 var posts = this.postsService.AllPerSchool(school.Id, postsPerPage);
 

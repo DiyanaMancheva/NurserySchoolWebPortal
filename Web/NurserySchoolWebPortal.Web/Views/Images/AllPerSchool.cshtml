@@ -1,0 +1,24 @@
+﻿@model NurserySchoolWebPortal.Web.ViewModels.Images.ImagesListViewModel
+
+<link href="~/css/img.css" rel="stylesheet" asp-append-version="true" />
+
+<!-- Images -->
+
+<hr />
+<div class="row">
+    <div id="mdb-lightbox-ui"></div>
+    @foreach (var image in this.Model.Images.Images)
+    {
+        <figure class="media col-md-3">
+            <a href=@image.Url data-size="1600x1067">
+                <img alt="picture" src=@image.Url class="img-fluid">
+            </a>
+        </figure>
+        <hr />
+        <a asp-controller="Images" asp-action="Delete" asp-route-id="@image.Id">Delete</a>
+    }
+</div>
+
+<hr />
+<!-- Images -->
+<partial name="_ImagesPagingPartialPerSchool" model="Model"/>
