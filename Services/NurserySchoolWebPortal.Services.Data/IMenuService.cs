@@ -9,6 +9,8 @@
     {
         Task AddAsync(MenuInputModel input, int schoolId);
 
-        Menu GetCurrent();
+        MenuViewModel GetById(int id);
+
+        MenuViewModel GetCurrent();
     }
 }

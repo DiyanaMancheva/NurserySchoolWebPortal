@@ -1,5 +1,6 @@
 ﻿namespace NurserySchoolWebPortal.Services.Data
 {
+    using System;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -35,11 +36,50 @@
             await this.menuRepository.SaveChangesAsync();
         }
 
-        public Menu GetCurrent()
+        public MenuViewModel GetById(int id)
         {
-            return this.menuRepository.AllAsNoTracking()
-                .OrderByDescending(x => x.DateFrom)
+            var menu = this.menuRepository.AllAsNoTracking()
+                 .Where(x => x.Id == id)
+                 .Select(x => new MenuViewModel
+                 {
+                     Id = x.Id,
+                     DateFrom = x.DateFrom.ToShortDateString(),
+                     DateTo = x.DateTo.ToShortDateString(),
+                     Monday = x.Monday,
+                     Tuesday = x.Tuesday,
+                     Wednesday = x.Wednesday,
+                     Thursday = x.Thursday,
+                     Friday = x.Friday,
+                     CreatedOn = x.CreatedOn,
+                     ModifiedOn = (DateTime)x.ModifiedOn,
+                 })
+                 .FirstOrDefault();
+
+            return menu;
+        }
+
+        public MenuViewModel GetCurrent()
+        {
+            var menu = this.menuRepository.AllAsNoTracking()
+                .OrderByDescending(x => x.CreatedOn)
+                .Select(x => new MenuViewModel
+                {
+                    Id = x.Id,
+                    DateFrom = x.DateFrom.ToShortDateString(),
+                    DateTo = x.DateTo.ToShortDateString(),
+                    Monday = x.Monday,
+                    Tuesday = x.Tuesday,
+                    Wednesday = x.Wednesday,
+                    Thursday = x.Thursday,
+                    Friday = x.Friday,
+                    CreatedOn = x.CreatedOn,
+                    ModifiedOn = (DateTime)x.ModifiedOn,
+                    DeletedOn = (DateTime)x.DeletedOn,
+                    IsDeleted = x.IsDeleted,
+                })
                 .FirstOrDefault();
+
+            return menu;
         }
     }
 }
