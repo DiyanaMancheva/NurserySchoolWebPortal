@@ -1,0 +1,52 @@
+﻿@model NurserySchoolWebPortal.Web.ViewModels.Fees.FeeInputModel
+@{
+    ViewData["Title"] = "Create";
+    var ChildrenItems = this.Model.ChildrenItems.Select(x => new SelectListItem(x.Value, x.Key.ToString()));
+}
+<h1>Create</h1>
+<h4>Fee</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Child" class="control-label"></label>
+                <select asp-for="Child" asp-items="ChildrenItems" class="form-control">
+                    <option value="value">Choose Child</option>
+                </select>
+                <span asp-validation-for="Child" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateFrom" class="control-label"></label>
+                <input asp-for="DateFrom" class="form-control" />
+                <span asp-validation-for="DateFrom" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateTo" class="control-label"></label>
+                <input asp-for="DateTo" class="form-control" />
+                <span asp-validation-for="DateTo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MoneyAmount" class="control-label"></label>
+                <input asp-for="MoneyAmount" class="form-control" />
+                <span asp-validation-for="MoneyAmount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+<div>
+    <a asp-controller="Children" asp-action="AllPerSchool">Back To Children</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

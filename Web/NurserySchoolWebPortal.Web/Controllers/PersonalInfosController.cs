@@ -12,6 +12,7 @@
     using NurserySchoolWebPortal.Services.Data;
     using NurserySchoolWebPortal.Web.ViewModels.PersoonalInfo;
 
+    [Authorize(Roles = GlobalConstants.PrincipalRoleName)]
     public class PersonalInfosController : BaseController
     {
         private readonly IDeletableEntityRepository<Principal> principalsRepository;
@@ -31,7 +32,6 @@
             this.personalInfosService = personalInfosService;
         }
 
-        [Authorize(Roles = GlobalConstants.PrincipalRoleName)]
         public IActionResult Create()
         {
             var viewModel = new PersonalInfoInputModel();
@@ -45,7 +45,6 @@
         }
 
         [HttpPost]
-        [Authorize(Roles = GlobalConstants.PrincipalRoleName)]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(PersonalInfoInputModel input)
         {
@@ -59,7 +58,6 @@
             return this.RedirectToAction("AllPerSchool", "Children", new { area = string.Empty });
         }
 
-        [Authorize(Roles = GlobalConstants.PrincipalRoleName)]
         public IActionResult Edit(int? id)
         {
             if (id == null)
@@ -78,7 +76,6 @@
         }
 
         [HttpPost]
-        [Authorize(Roles = GlobalConstants.PrincipalRoleName)]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, PersonalInfoInputModel input)
         {

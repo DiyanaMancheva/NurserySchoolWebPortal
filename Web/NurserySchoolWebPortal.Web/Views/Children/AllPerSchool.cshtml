@@ -47,10 +47,13 @@
             }
             @if (!child.IsDeleted)
             {
-                <td>
-                    <a asp-controller="PersonalInfos" asp-action="Create">AddPersonalInfo</a> |
-                    <a asp-controller="PersonalInfos" asp-action="Edit" asp-route-id="@child.Id">EditPersonalInfo</a> 
-                </td>
+        <td>
+            <a asp-controller="PersonalInfos" asp-action="Create">Add Info</a> |
+            <a asp-controller="PersonalInfos" asp-action="Edit" asp-route-id="@child.Id">Edit Info</a> |
+            <a asp-controller="Fees" asp-action="Create">Add Fee</a> |
+            <a asp-controller="Fees" asp-action="Edit" asp-route-id="@child.Id">Edit Fee</a>
+        </td>
+
             }
         </tr>
     }
