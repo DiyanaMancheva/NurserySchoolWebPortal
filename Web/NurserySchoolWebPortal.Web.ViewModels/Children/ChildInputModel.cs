@@ -2,21 +2,30 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
 
     public class ChildInputModel
     {
         public int Id { get; set; }
 
+        [Required]
+        [MinLength(3)]
         public string FirstName { get; set; }
 
+        [Required]
+        [MinLength(3)]
         public string MiddleName { get; set; }
 
+        [Required]
+        [MinLength(3)]
         public string LastName { get; set; }
 
         public int Gender { get; set; }
 
         public DateTime DateOfBirth { get; set; }
 
+        [Required]
+        [StringLength(10)]
         public string EGN { get; set; }
 
         public string Address { get; set; }

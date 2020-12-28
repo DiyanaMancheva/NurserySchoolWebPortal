@@ -3,6 +3,7 @@
     public static class GlobalConstants
     {
         public const string SystemName = "NurserySchoolWebPortal";
+        public const string NurserySchoolsName = "Alphabet";
 
         public const string AdministratorRoleName = "Administrator";
         public const string ParentRoleName = "Parent";

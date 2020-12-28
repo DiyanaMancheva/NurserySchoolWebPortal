@@ -8,7 +8,7 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-8">
-            <h2 class="mt-4">Седмично меню от @this.Model.DateFrom до @this.Model.DateTo</h2>
+            <h3 class="mt-4">Седмично меню от @this.Model.DateFrom до @this.Model.DateTo</h3>
             <hr />
             <p>Posted on @Model.CreatedOn</p>
             @if (this.User.IsInRole(NurserySchoolWebPortal.Common.GlobalConstants.PrincipalRoleName))
@@ -19,8 +19,7 @@
                 }
             }
             <hr />
-            <img class="img-fluid rounded" src="https://www.dijamant.rs/wp-content/uploads/2016/06/002_proizvodi_bg_omegol-820x200.jpg" alt="image">
-            @*src="https://image.shutterstock.com/image-photo/delicious-cold-meat-salad-french-260nw-406446562.jpg"*@
+            <img class="img-fluid rounded" src="https://image.shutterstock.com/image-photo/delicious-cold-meat-salad-french-260nw-406446562.jpg" alt="image">
             <hr />
             <p class="lead font-weight-bold">Понеделник:</p>
             <p class="lead">@Model.Monday</p>

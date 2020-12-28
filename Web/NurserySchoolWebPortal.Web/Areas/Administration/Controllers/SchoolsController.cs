@@ -9,7 +9,6 @@
     using NurserySchoolWebPortal.Data.Common.Repositories;
     using NurserySchoolWebPortal.Data.Models;
     using NurserySchoolWebPortal.Services.Data;
-    using NurserySchoolWebPortal.Web.ViewModels.Administration.Groups;
     using NurserySchoolWebPortal.Web.ViewModels.Schools;
 
     public class SchoolsController : AdministrationController
@@ -25,7 +24,7 @@
             this.groupsService = groupsService;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             var schools = this.schoolsRepository.AllAsNoTrackingWithDeleted()
                 .Select(x => new SingleSchoolViewModel
@@ -67,16 +66,6 @@
                 })
                 .FirstOrDefaultAsync();
 
-            //var groups = this.schoolsRepository.AllAsNoTracking()
-            //    .Where(x => x.Id == id)
-            //    .Select(x => new GroupsListViewModel
-            //    {
-            //        Groups = x.NurseryGroups,
-            //    })
-            //    .ToList();
-
-            //school.Groups = groups;
-
             if (school == null)
             {
                 return this.NotFound();
@@ -104,7 +93,6 @@
             return this.View(school);
         }
 
-        //// GET: Administration/Schools/Edit/2
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -136,9 +124,6 @@
             return this.View(schoolViewModel);
         }
 
-        //// POST: Administration/Schools/Edit/2
-        //// To protect from overposting attacks, enable the specific properties you want to bind to.
-        //// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, SchoolInputModel input)

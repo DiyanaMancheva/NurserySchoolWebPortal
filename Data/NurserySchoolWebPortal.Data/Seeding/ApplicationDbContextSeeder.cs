@@ -32,7 +32,6 @@
                               new ImagesSeeder(),
                               new TeachersSeeder(),
                               new ChildrenSeeder(),
-                              //new PrincipalsSeeder(),
                               new PostsSeeder(),
                           };
 

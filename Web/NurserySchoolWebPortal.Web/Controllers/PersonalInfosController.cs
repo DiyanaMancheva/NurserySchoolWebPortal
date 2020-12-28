@@ -56,7 +56,7 @@
 
             await this.personalInfosService.AddAsync(input);
 
-            return this.RedirectToAction(nameof(this.Create));
+            return this.RedirectToAction("AllPerSchool", "Children", new { area = string.Empty });
         }
 
         [Authorize(Roles = GlobalConstants.PrincipalRoleName)]
@@ -121,7 +121,7 @@
                     }
                 }
 
-                return this.RedirectToAction(nameof(this.Edit));
+                return this.RedirectToAction("AllPerSchool", "Children", new { area = string.Empty });
             }
 
             return this.View(personalInfo);

@@ -4,10 +4,8 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
-
     using NurserySchoolWebPortal.Data.Common.Repositories;
     using NurserySchoolWebPortal.Data.Models;
     using NurserySchoolWebPortal.Services.Data;
@@ -36,7 +34,7 @@
             this.schoolsRepository = schoolsRepository;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             var principals = this.principalsRepository.AllAsNoTrackingWithDeleted()
                 .Select(x => new PrincipalViewModel
@@ -124,7 +122,7 @@
         }
 
         //// GET: Administration/Principals/Edit/2
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -141,11 +139,8 @@
                     Email = x.Email,
                     PhoneNumber = x.PhoneNumber,
                     Address = x.Address,
-                    //NurserySchoolId = x.NurserySchoolId,
                 })
                 .FirstOrDefault();
-
-            //principalViewModel.SchoolsItems = this.schoolsService.GetAllAsKeyValuePairs();
 
             if (principal == null)
             {
@@ -155,9 +150,6 @@
             return this.View(principal);
         }
 
-        //// POST: Administration/Principals/Edit/2
-        //// To protect from overposting attacks, enable the specific properties you want to bind to.
-        //// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, ApplicationUser input)
@@ -193,7 +185,6 @@
                 Gender = currentUser.Gender,
                 UserType = currentUser.UserType,
                 DateOfBirth = currentUser.DateOfBirth,
-                //Principal = principal,
                 AccessFailedCount = currentUser.AccessFailedCount,
                 LockoutEnabled = currentUser.LockoutEnabled,
                 TwoFactorEnabled = currentUser.TwoFactorEnabled,
@@ -207,7 +198,6 @@
                 CreatedOn = currentPrincipal.CreatedOn,
                 ModifiedOn = currentUser.ModifiedOn,
                 UserId = currentPrincipal.UserId,
-                //User = user,
                 IsDeleted = currentUser.IsDeleted,
                 DeletedOn = currentUser.DeletedOn,
                 NurserySchoolId = currentPrincipal.NurserySchoolId,
@@ -281,7 +271,6 @@
             return this.View(principalViewModel);
         }
 
-        // POST: Administration/Categories/Delete/2
         [HttpPost]
         [ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -300,6 +289,5 @@
         {
             return this.principalsRepository.All().Any(e => e.Id == id);
         }
-
     }
 }

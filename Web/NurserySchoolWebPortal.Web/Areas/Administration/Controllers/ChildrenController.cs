@@ -4,10 +4,8 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
-    using NurserySchoolWebPortal.Common;
     using NurserySchoolWebPortal.Data.Common.Repositories;
     using NurserySchoolWebPortal.Data.Models;
     using NurserySchoolWebPortal.Services.Data;
@@ -35,7 +33,6 @@
             this.childrenService = childrenService;
         }
 
-        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public IActionResult Index()
         {
             var children = this.childrenRepository.AllAsNoTrackingWithDeleted()
@@ -60,7 +57,6 @@
             return this.View(viewModel);
         }
 
-        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -102,7 +98,6 @@
             return this.View(childViewModel);
         }
 
-        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public IActionResult Create()
         {
             var viewModel = new ChildInputModel();
@@ -113,7 +108,6 @@
         }
 
         [HttpPost]
-        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ChildInputModel input)
         {
@@ -127,7 +121,6 @@
             return this.RedirectToAction(nameof(this.Index));
         }
 
-        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public IActionResult Edit(int? id)
         {
             if (id == null)
@@ -165,7 +158,6 @@
         }
 
         [HttpPost]
-        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, ChildInputModel input)
         {
@@ -222,7 +214,6 @@
             return this.View(child);
         }
 
-        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -262,7 +253,6 @@
 
         [HttpPost]
         [ActionName("Delete")]
-        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
