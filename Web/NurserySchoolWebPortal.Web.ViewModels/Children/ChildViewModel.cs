@@ -12,7 +12,19 @@
 
         public string LastName { get; set; }
 
+        public double FeeMoneyAmount { get; set; }
+
+        public string FeeTitle { get; set; }
+
+        public string FeeDateFrom { get; set; }
+
+        public string FeeDateTo { get; set; }
+
         public FeeViewModel Fee { get; set; }
+
+        public decimal Weight { get; set; }
+
+        public decimal Height { get; set; }
 
         public PersonalInfoViewModel PersonalInfo { get; set; }
 
@@ -35,6 +47,8 @@
         public ParentViewModel Parent { get; set; }
 
         public string PhoneNumber { get; set; }
+
+        public string Email { get; set; }
 
         public string ParentName { get; set; }
 

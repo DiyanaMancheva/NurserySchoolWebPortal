@@ -1,5 +1,6 @@
 ﻿namespace NurserySchoolWebPortal.Services.Data
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using NurserySchoolWebPortal.Web.ViewModels.Children;
@@ -9,5 +10,7 @@
         Task AddAsync(ChildInputModel input);
 
         ChildViewModel ById(int id);
+
+        IEnumerable<KeyValuePair<int, string>> GetAllAsKeyValuePairsPerSchool(int schoolId);
     }
 }

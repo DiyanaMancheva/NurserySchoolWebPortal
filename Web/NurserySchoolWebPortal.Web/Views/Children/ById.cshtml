@@ -4,7 +4,6 @@
 
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
 
 <div class="container emp-profile">
     <form method="post">
@@ -19,10 +18,6 @@
                     {
                         <img src="https://image.shutterstock.com/image-vector/happy-african-american-girl-cartoon-260nw-522003124.jpg" alt="girl pic" />
                     }
-                    @*<div class="file btn btn-lg btn-primary">
-                        Change Photo
-                        <input type="file" name="file" />
-                    </div>*@
                 </div>
             </div>
             <div class="col-md-6">
@@ -31,9 +26,9 @@
                         @Model.FirstName @Model.MiddleName @Model.LastName
                     </h5>
                     <h6>
-                        @Model.NurserySchool Nursery School
+                        @Model.SchoolName Nursery School
                     </h6>
-                    <p class="proile-rating">RANKINGS : <span>8/10</span></p>
+                    <p class="proile-rating">STARS : <span>8/10</span></p>
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
@@ -47,23 +42,14 @@
                     </ul>
                 </div>
             </div>
-            @*<div class="col-md-2">
-                <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile" />
-            </div>*@
         </div>
         <div class="row">
             <div class="col-md-4">
                 <div class="profile-work">
                     <p>Parent Info</p>
-                    <a href="">@Model.Parent.ParentName</a><br />
-                    <a href="">@Model.Parent.ParentEmail</a><br />
-                    <a href="">Model.Phone</a>
-                    @*<p>SKILLS</p>
-                    <a href="">Web Designer</a><br />
-                    <a href="">Web Developer</a><br />
-                    <a href="">WordPress</a><br />
-                    <a href="">WooCommerce</a><br />
-                    <a href="">PHP, .Net</a><br />*@
+                    <a href="">@Model.ParentName</a><br />
+                    <a href="">@Model.Email</a><br />
+                    <a href="">@Model.PhoneNumber</a>
                 </div>
             </div>
             <div class="col-md-8">
@@ -114,7 +100,7 @@
                                 <label>Nursery School</label>
                             </div>
                             <div class="col-md-6">
-                                <p>@Model.NurserySchool</p>
+                                <p>@Model.SchoolName</p>
                             </div>
                         </div>
                         <div class="row">
@@ -122,28 +108,28 @@
                                 <label>Nursery Group</label>
                             </div>
                             <div class="col-md-6">
-                                <p>@Model.NurseryGroup</p>
+                                <p>@Model.GroupName</p>
                             </div>
                         </div>
                     </div>
                     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                         <div class="row">
                             <div class="col-md-6">
-                                <label>Height</label>
+                                <label>Height(cm)</label>
                             </div>
                             <div class="col-md-6">
-                                <p>Model.PersonalInfo.Height</p>
+                                <p>@Model.Height</p>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <label>Weight</label>
+                                <label>Weight(kg)</label>
                             </div>
                             <div class="col-md-6">
-                                <p>Model.PersonalInfo.Weight</p>
+                                <p>@Model.Weight</p>
                             </div>
                         </div>
-                        <div class="row">
+                        @*<div class="row">
                             <div class="col-md-6">
                                 <label>Immunizations</label>
                             </div>
@@ -153,21 +139,7 @@
                                 <p>Model.PersonalInfo.Immunizations.Name-Model.PersonalInfo.Immunizations.Date</p>
                             </div>
                             }
-                        </div>
-                        @*<div class="row">
-                <div class="col-md-6">
-                    <label>Availability</label>
-                </div>
-                <div class="col-md-6">
-                    <p>6 months</p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <label>Your Bio</label><br />
-                    <p>Your detail description</p>
-                </div>
-            </div>*@
+                        </div>*@
                     </div>
                     <div class="tab-pane fade" id="pr" role="tabpanel" aria-labelledby="pr-tab">
                         <div class="row">
@@ -175,7 +147,7 @@
                                 <label>Title</label>
                             </div>
                             <div class="col-md-6">
-                                <p>Model.Fee.Title</p>
+                                <p>@Model.FeeTitle</p>
                             </div>
                         </div>
                         <div class="row">
@@ -183,7 +155,7 @@
                                 <label>From</label>
                             </div>
                             <div class="col-md-6">
-                                <p>Model.Fee.DateFrom</p>
+                                <p>@Model.FeeDateFrom</p>
                             </div>
                         </div>
                         <div class="row">
@@ -191,7 +163,7 @@
                                 <label>To</label>
                             </div>
                             <div class="col-md-6">
-                                <p>Model.Fee.DateTo</p>
+                                <p>@Model.FeeDateTo</p>
                             </div>
                         </div>
                         <div class="row">
@@ -199,7 +171,7 @@
                                 <label>Fee</label>
                             </div>
                             <div class="col-md-6">
-                                <p>Model.Fee.MoneyAmount</p>
+                                <p>@Model.FeeMoneyAmount</p>
                             </div>
                         </div>
                     </div>

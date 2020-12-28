@@ -1,5 +1,6 @@
 ﻿namespace NurserySchoolWebPortal.Services.Data
 {
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
     using NurserySchoolWebPortal.Data.Common.Repositories;
@@ -87,14 +88,20 @@
                     FirstName = x.FirstName,
                     MiddleName = x.MiddleName,
                     LastName = x.LastName,
-                    Fee = fee,
-                    PersonalInfo = personalInfo,
+                    FeeMoneyAmount = x.Fee.MoneyAmount,
+                    FeeTitle = x.Fee.Title,
+                    FeeDateFrom = x.Fee.DateFrom.ToShortDateString(),
+                    FeeDateTo = x.Fee.DateTo.ToShortDateString(),
+                    Weight = x.PersonalInfo.Weight,
+                    Height = x.PersonalInfo.Height,
                     Gender = (int)x.Gender,
                     Address = x.Address,
                     DateOfBirth = x.DateOfBirth.ToShortDateString(),
                     SchoolName = x.NurseryGroup.NurserySchool.Name,
-                    NurseryGroup = x.NurseryGroupId,
-                    Parent = parent,
+                    GroupName = x.NurseryGroup.Name,
+                    ParentName = x.Parent.User.FirstName + " " + x.Parent.User.LastName,
+                    PhoneNumber = x.Parent.User.PhoneNumber,
+                    Email = x.Parent.User.Email,
                 })
                 .FirstOrDefault();
 
@@ -102,6 +109,22 @@
 
             //var immunizations = this.immunizationsRepository.AllAsNoTracking()
             //   .Where(x => x.PersonalInfos.Contains(personalInfo))
+        }
+
+        public IEnumerable<KeyValuePair<int, string>> GetAllAsKeyValuePairsPerSchool(int schoolId)
+        {
+            var children = this.childrenRepository.AllAsNoTracking()
+                .Where(x => x.NurseryGroup.NurserySchoolId == schoolId)
+                .Select(x => new
+                {
+                    Id = x.Id,
+                    Name = x.FirstName + " " + x.LastName,
+                })
+                .OrderBy(x => x.Id)
+                .ToList()
+                .Select(x => new KeyValuePair<int, string>(x.Id, x.Name));
+
+            return children;
         }
     }
 }

@@ -72,6 +72,7 @@
             services.AddTransient<IPrincipalsService, PrincipalsService>();
             services.AddTransient<IGroupsService, GroupsService>();
             services.AddTransient<IMenuService, MenuService>();
+            services.AddTransient<IPersonalInfosService, PersonalInfosService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
